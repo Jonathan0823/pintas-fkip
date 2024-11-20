@@ -23,10 +23,14 @@ const Page = () => {
           className="absolute top-2 w-20"
         />
         <BackButton className="text-[#997c5c] text-5xl absolute top-16 left-5" />
-        <div className="text-white text-center">
-          <h1>PINTAS FKIP</h1>
-          <h2>(PEMINJAMAN FASILITAS)</h2>
-          <h2>FKIP UNSIKA</h2>
+        <div className="text-white mt-36 md:mt-44 text-center space-y-3">
+          <h1 className="text-3xl">PINTAS FKIP</h1>
+          <h2 className="text-lg tracking-[2px]">
+            <span className="font-serif">(</span>
+            PEMINJAMAN FASILITAS
+            <span className="font-serif">)</span>
+          </h2>
+          <h2 className="text-xl tracking-[0.1em]">FKIP UNSIKA</h2>
         </div>
       </div>
       <Footer color="" />
