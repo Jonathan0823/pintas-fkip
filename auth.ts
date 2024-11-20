@@ -33,7 +33,6 @@ export const {
             email: email,
           },
         });
-        console.log(user);
 
         if (!user || !user.password) {
           return null;
