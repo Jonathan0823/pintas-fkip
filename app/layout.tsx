@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import localFont from 'next/font/local'
+import localFont from "next/font/local";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 };
 
 const theSeasons = localFont({
-  src: './font/theseasons.otf',
-  display: 'swap',
-})
+  src: "./font/theseasons.otf",
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${theSeasons.className} antialiased`}
-      >
-        {children}
+      <body className={`${theSeasons.className} antialiased`}>
+        <div className="w-full bg-[rgb(204,180,156)]">
+          <div className="md:max-w-md mx-auto">{children}</div>
+        </div>
       </body>
     </html>
   );
