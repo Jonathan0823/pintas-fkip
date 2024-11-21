@@ -19,6 +19,7 @@ import { z } from "zod";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { loginWithCreds } from "@/lib/auth-action";
+import { useSession } from "next-auth/react"
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -48,7 +49,13 @@ const Page = () => {
   }
 
   const [showPassword, setShowPassword] = useState(false);
+  
+  const { data: session } = useSession();
 
+  if (session) {
+    window.location.href = "/home";
+  }
+  
   return (
     <div>
       <div

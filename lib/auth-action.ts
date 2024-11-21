@@ -8,7 +8,7 @@ export async function logout() {
   }
   
   export async function loginWithCreds(email: string, password: string) {
-    await signIn("credentials", { email, password, redirectTo: "/" });
-    revalidatePath("/");
+    await signIn("credentials", { email, password, redirectTo: "/home" });
+    revalidatePath("/home");
   }
   
