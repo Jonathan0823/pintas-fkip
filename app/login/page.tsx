@@ -18,6 +18,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { z } from "zod";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa6";
+import { loginWithCreds } from "@/lib/auth-action";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -33,10 +34,17 @@ const Page = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const { email, password } = values;
+    try {
+      const res = await loginWithCreds(email, password);
+      console.log(res);
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.message.includes("NEXT_REDIRECT")) {
+        }
+      }
+    }
   }
 
   const [showPassword, setShowPassword] = useState(false);
