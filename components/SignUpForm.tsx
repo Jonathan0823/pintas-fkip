@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { FaUserCircle } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
+
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -34,9 +36,8 @@ const SignUpForm = ({ type }: { type: string }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(type);
+    toast.loading("Creating user...");
     const { username, status, telephone, email, password } = values;
-    console.log(username, status, telephone, email, password);
 
     try {
       const response = await fetch("/api/auth/register", {
@@ -54,19 +55,24 @@ const SignUpForm = ({ type }: { type: string }) => {
         }),
       });
 
+      toast.dismiss();
       if (!response.ok) {
-        throw new Error("Failed to create user");
+        toast.dismiss();
+        toast.error("User creation failed");
       }
+      toast.success("User created");
 
       form.reset();
-    } catch (error) {
+    } catch {
       form.reset();
-      console.error(error);
+      toast.dismiss();
+      toast.error("User creation failed");
     }
   }
 
   return (
     <Form {...form}>
+      <Toaster />
       <h1 className="text-white text-3xl md:text-4xl font-bold tracking-tight mt-24 md:mt-32">
         BUAT AKUN
       </h1>
