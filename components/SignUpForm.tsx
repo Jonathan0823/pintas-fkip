@@ -38,7 +38,7 @@ const SignUpForm = ({ type }: { type: string }) => {
     const { username, status, telephone, email, password } = values;
     console.log(username, status, telephone, email, password);
 
-    try{
+    try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
@@ -79,7 +79,9 @@ const SignUpForm = ({ type }: { type: string }) => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black text-xl tracking-wider">NAMA LENGKAP :</FormLabel>
+              <FormLabel className="text-black text-xl tracking-wider">
+                NAMA LENGKAP :
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -95,7 +97,13 @@ const SignUpForm = ({ type }: { type: string }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-black text-xl tracking-wider">
-                {type === "admin" ? "JABATAN/POSISI SAAT INI :" : "NAMA ORMAWA :"}
+                {type === "admin" ? (
+                  <>
+                    JABATAN<span className="font-sans">/</span>POSISI SAAT INI :
+                  </>
+                ) : (
+                  "NAMA ORMAWA :"
+                )}
               </FormLabel>
               <FormControl>
                 <Input
@@ -111,7 +119,9 @@ const SignUpForm = ({ type }: { type: string }) => {
           name="telephone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black text-xl tracking-wider">NO TELEPON :</FormLabel>
+              <FormLabel className="text-black text-xl tracking-wider">
+                NO TELEPON :
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -126,7 +136,9 @@ const SignUpForm = ({ type }: { type: string }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black text-xl tracking-wider">EMAIL :</FormLabel>
+              <FormLabel className="text-black text-xl tracking-wider">
+                EMAIL :
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -141,7 +153,9 @@ const SignUpForm = ({ type }: { type: string }) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black text-xl tracking-wider">PASSWORD :</FormLabel>
+              <FormLabel className="text-black text-xl tracking-wider">
+                PASSWORD :
+              </FormLabel>
               <FormControl>
                 <Input
                   {...field}
