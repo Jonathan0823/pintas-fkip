@@ -37,7 +37,7 @@ export default function Home() {
       <div className="w-full flex flex-col mt-40 md:mt-72 px-6 text-center">
         <Link
           href="/login"
-          className="bg-[#faf5ef] text-[#b49f8b] text-xl w-full tracking-widest relative py-3 font-bold rounded-xl"
+          className="bg-[#faf5ef] text-[#706356] text-xl w-full tracking-widest relative py-3 font-bold rounded-xl"
         >
           <IoSearchOutline className="absolute top-1/2 right-4 text-3xl transform -translate-y-1/2" />
           LOG IN

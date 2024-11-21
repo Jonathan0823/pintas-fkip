@@ -1,10 +1,13 @@
 "use client"
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 const BackButton = ({ className }: { className?: string }) => {
+
+  const router = useRouter();
     const handleBack = () => {
-        window.history.back();
+        router.back();
     }
 
   return (
