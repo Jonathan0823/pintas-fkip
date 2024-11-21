@@ -12,8 +12,8 @@ const MenuDropdown = () => {
   return (
     <DropdownMenu>
       {/* Dropdown trigger (menu icon) */}
-      <DropdownMenuTrigger className="p-2 rounded-full bg-white shadow-md">
-        <IoMenu size={24} />
+      <DropdownMenuTrigger>
+        <IoMenu />
       </DropdownMenuTrigger>
 
       {/* Dropdown content */}
