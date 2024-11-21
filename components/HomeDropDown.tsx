@@ -10,7 +10,7 @@ const HomeDropDown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <div className="bg-[#f8e6da] mt-3 text-[#706356] px-6 tracking-widest relative py-3 font-bold rounded-full border border-black">
+        <div className="bg-[#f8e6da] mt-3 text-[#706356] px-6 text-sm tracking-widest relative py-3 font-bold rounded-full border border-black">
           SIGN UP
         </div>
       </DropdownMenuTrigger>

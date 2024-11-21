@@ -67,25 +67,25 @@ const SignUpForm = ({ type }: { type: string }) => {
 
   return (
     <Form {...form}>
-      <h1 className="text-white text-4xl md:text-5xl font-bold tracking-tight mt-24 md:mt-40">
+      <h1 className="text-white text-3xl md:text-4xl font-bold tracking-tight mt-24 md:mt-32">
         BUAT AKUN
       </h1>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="md:gap-3 gap-2 text-[#706356] px-5 w-full mt-5 md:mt-10 flex flex-col"
+        className="gap-1 text-[#706356] px-10 md:px-5 w-full mt-5 md:mt-10 flex flex-col"
       >
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black text-xl tracking-wider">
+              <FormLabel className="text-black text-lg tracking-wider">
                 NAMA LENGKAP :
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-4 md:py-6 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -108,7 +108,7 @@ const SignUpForm = ({ type }: { type: string }) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-4 md:py-6 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -125,7 +125,7 @@ const SignUpForm = ({ type }: { type: string }) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-4 md:py-6 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -142,7 +142,7 @@ const SignUpForm = ({ type }: { type: string }) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-4 md:py-6 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -159,7 +159,7 @@ const SignUpForm = ({ type }: { type: string }) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-4 md:py-6 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -168,14 +168,14 @@ const SignUpForm = ({ type }: { type: string }) => {
         <div
           role="button"
           tabIndex={0}
-          className="mx-auto mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-xl py-2 cursor-pointer"
+          className="mx-auto mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-lg py-2 cursor-pointer"
           onClick={() => {
             const form = document.querySelector("form");
             if (form) form.requestSubmit();
           }} // Submit the form
         >
           SIGN UP
-          <FaUserCircle className="text-4xl" />
+          <FaUserCircle className="text-3xl" />
         </div>
       </form>
     </Form>
