@@ -2,10 +2,9 @@
 import BackButton from "@/components/BackButton";
 import Footer from "@/components/Footer";
 import Image from "next/image";
-import React from "react";
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -15,8 +14,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
+import { FaUserCircle } from "react-icons/fa";
 import { z } from "zod";
+import { FaRegEye } from "react-icons/fa";
+import { FaRegEyeSlash } from "react-icons/fa6";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -38,6 +39,8 @@ const Page = () => {
     console.log(values);
   }
 
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div>
       <div
@@ -54,22 +57,22 @@ const Page = () => {
           alt="unsika"
           width={100}
           height={100}
-          className="absolute top-2 w-20"
+          className="absolute top-2 md:w-20 w-14"
         />
-        <BackButton className="text-[#997c5c] text-5xl absolute top-16 left-5" />
-        <div className="text-white mt-36 md:mt-44 text-center space-y-3">
-          <h1 className="text-3xl">PINTAS FKIP</h1>
-          <h2 className="text-lg tracking-[2px]">
+        <BackButton className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5" />
+        <div className="text-white mt-56 md:mt-44 text-center space-y-1">
+          <h1 className="text-5xl">PINTAS FKIP</h1>
+          <h2 className="text-md tracking-[2px]">
             <span className="font-serif">(</span>
             PEMINJAMAN FASILITAS
             <span className="font-serif">)</span>
           </h2>
-          <h2 className="text-xl tracking-[0.1em]">FKIP UNSIKA</h2>
+          <h2 className="text-2xl tracking-[0.1em]">FKIP UNSIKA</h2>
         </div>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-5  text-[#b99f83] px-10 w-full flex flex-col"
+            className="space-y-5  text-[#b99f83] px-10 w-full mt-5 md:mt-10 flex flex-col"
           >
             <FormField
               control={form.control}
@@ -81,9 +84,15 @@ const Page = () => {
                       <Input
                         {...field}
                         className="bg-[#fbf5f0] py-6 pl-20 !text-lg font-sans rounded-xl"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            const form = document.querySelector("form");
+                            if (form) form.requestSubmit();
+                          }
+                        }}
                       />
                       <FormLabel className="absolute text-lg top-1/2 left-4 font-bold transform -translate-y-1/2">
-                        EMAIL
+                        EMAIL :
                       </FormLabel>
                     </div>
                   </FormControl>
@@ -99,26 +108,44 @@ const Page = () => {
                   <FormControl>
                     <div className="relative">
                       <Input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         {...field}
                         className="bg-[#fbf5f0] py-6 pl-32 rounded-xl font-sans !text-lg"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            const form = document.querySelector("form");
+                            if (form) form.requestSubmit();
+                          }
+                        }}
                       />
                       <FormLabel className="absolute top-1/2 left-4 text-lg font-bold transform -translate-y-1/2">
-                        PASSWORD
+                        PASSWORD :
                       </FormLabel>
+
+                      <div
+                        className="absolute top-1/2 right-4 transform -translate-y-1/2 text-2xl"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                      </div>
                     </div>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button
-              type="submit"
-              style={{ width: "fit-content" }}
-              className="mx-auto bg-[#86271c] text-white border-2 flex border-white rounded-full px-6 font-bold font-sans text-xl py-5 "
+            <div
+              role="button"
+              tabIndex={0}
+              className="mx-auto bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-xl py-2 cursor-pointer"
+              onClick={() => {
+                const form = document.querySelector("form");
+                if (form) form.requestSubmit();
+              }} // Submit the form
             >
               LOGIN
-            </Button>
+              <FaUserCircle className="text-4xl" />
+            </div>
           </form>
         </Form>
       </div>

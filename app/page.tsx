@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import HomeDropDown from "@/components/HomeDropDown";
 import Image from "next/image";
 import Link from "next/link";
 import { IoSearchOutline } from "react-icons/io5";
@@ -17,12 +18,12 @@ export default function Home() {
       className="w-full flex flex-col items-center relative"
     >
       <Image
-        src="/unsikalogo.png"
-        alt="unsika"
-        width={100}
-        height={100}
-        className="absolute top-2 w-20"
-      />
+          src="/unsikalogo.png"
+          alt="unsika"
+          width={100}
+          height={100}
+          className="absolute top-2 md:w-20 w-14"
+        />
       <div className="text-white mt-36 md:mt-44 text-center space-y-2 md:space-y-3">
         <h1 className="text-6xl">PINTAS FKIP</h1>
         <h2 className="text-xl tracking-[2px]">
@@ -42,9 +43,7 @@ export default function Home() {
           LOG IN
         </Link>
       </div>
-      <button className="bg-[#f8e6da] mt-3 text-[#b49f8b] px-6 tracking-widest relative py-3 font-bold rounded-full border border-black">
-        SIGN UP
-      </button>
+      <HomeDropDown />
       <Footer color="#9d7c58" />
     </div>
   );
