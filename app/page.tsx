@@ -24,7 +24,7 @@ export default function Home() {
           height={100}
           className="absolute top-2 md:w-20 w-14"
         />
-      <div className="text-white mt-36 md:mt-44 text-center space-y-2 md:space-y-3">
+      <div className="text-white mt-36 md:mt-56 text-center space-y-2 md:space-y-3">
         <h1 className="text-6xl">PINTAS FKIP</h1>
         <h2 className="text-xl tracking-[2px]">
           <span className="font-serif">(</span>
@@ -34,7 +34,7 @@ export default function Home() {
         <h2 className="text-4xl tracking-[0.1em]">FKIP UNSIKA</h2>
       </div>
 
-      <div className="w-full flex flex-col mt-40 md:mt-48 px-6 text-center">
+      <div className="w-full flex flex-col mt-40 md:mt-72 px-6 text-center">
         <Link
           href="/login"
           className="bg-[#faf5ef] text-[#b49f8b] text-xl w-full tracking-widest relative py-3 font-bold rounded-xl"
