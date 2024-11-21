@@ -87,7 +87,7 @@ const Page = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-5  text-[#706356] px-10 w-full mt-5 md:mt-10 flex flex-col"
+            className="md:space-y-5 space-y-3 text-[#706356] px-10 w-full mt-5 md:mt-10 flex flex-col"
           >
             <FormField
               control={form.control}
