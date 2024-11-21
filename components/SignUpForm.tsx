@@ -33,11 +33,36 @@ const SignUpForm = ({ type }: { type: string }) => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(type);
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    const { username, status, telephone, email, password } = values;
+    console.log(username, status, telephone, email, password);
+
+    try{
+      const response = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: username,
+          namaormawa: status,
+          telephone,
+          email,
+          password,
+          isAdmin: type === "admin",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create user");
+      }
+
+      form.reset();
+    } catch (error) {
+      form.reset();
+      console.error(error);
+    }
   }
 
   return (

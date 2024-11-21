@@ -51,6 +51,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   password      String?
+  isAdmin       Boolean   @default(false) @map("is_admin")
   image         String?
   accounts      Account[]
   sessions      Session[]
