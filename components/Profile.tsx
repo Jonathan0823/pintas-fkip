@@ -42,7 +42,7 @@ const Profile = ({ session }: { session: ProfileProps }) => {
     refetch,
   } = useQuery({
     queryKey: ["user", email],
-    queryFn: () => getCurrentUserInfo({ email }),
+    queryFn: () => getCurrentUserInfo(email),
     enabled: !!email, // Only fetch if email is available
     staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes
   });

@@ -6,7 +6,7 @@ import React from "react";
 
 const Page = async () => {
   const session = await auth();
-  const user = await getCurrentUserInfo({ email: session?.user?.email || "" });
+  const user = await getCurrentUserInfo(session?.user?.email || "");
 
   console.log(session?.user);
 
