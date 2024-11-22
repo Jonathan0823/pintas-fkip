@@ -18,7 +18,7 @@ const MenuDropdown = () => {
     <DropdownMenu>
       {/* Dropdown trigger (menu icon) */}
       <DropdownMenuTrigger className="p-2 rounded-full bg-white shadow-md">
-        <IoMenu size={24} />
+        <IoMenu className="text-3xl" />
       </DropdownMenuTrigger>
 
       {/* Dropdown content */}
@@ -30,7 +30,7 @@ const MenuDropdown = () => {
         {/* Dropdown items */}
         <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
         <Link href="/home">
-          <IoHomeOutline />
+          <IoHomeOutline className="text-xl" />
         </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
