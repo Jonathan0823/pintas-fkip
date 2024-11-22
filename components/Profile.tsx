@@ -121,13 +121,13 @@ const Profile = ({ session }: { session: ProfileProps }) => {
   return (
     <Form {...form}>
       <Toaster />
-      <div className="relative">
+      <div className="relative w-24 h-24 md:w-32 md:h-32">
         <Image
           src={imagePreview || "/defaultuser.png"}
           alt="user-image"
-          width={100}
-          height={100}
-          className="mx-auto w-24 md:w-32 cursor-pointer"
+          width={100} // Image width in pixels
+          height={100} // Image height in pixels
+          className="mx-auto w-full h-full object-cover rounded-full cursor-pointer"
           onClick={() => document.getElementById("image-upload")?.click()} // Trigger file input on image click
         />
         <input
