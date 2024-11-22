@@ -13,6 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
 import { User } from "@/types/User";
+import Image from "next/image";
+import { useState } from "react";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -23,6 +25,7 @@ const formSchema = z.object({
 });
 
 const Profile = ({ user }: { user: User }) => {
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -33,6 +36,17 @@ const Profile = ({ user }: { user: User }) => {
       password: "",
     },
   });
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string); // Set the image preview
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     toast.loading("Updating user...");
@@ -69,6 +83,23 @@ const Profile = ({ user }: { user: User }) => {
   return (
     <Form {...form}>
       <Toaster />
+      <div className="relative">
+        <Image
+          src={imagePreview || "/defaultuser.png"}
+          alt="user-image"
+          width={100}
+          height={100}
+          className="mx-auto w-24 md:w-32 cursor-pointer"
+          onClick={() => document.getElementById("image-upload")?.click()} // Trigger file input on image click
+        />
+        <input
+          id="image-upload"
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageUpload}
+        />
+      </div>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="gap-1 text-black px-10 md:px-5 w-full mt-2 md:mt-3 flex flex-col"

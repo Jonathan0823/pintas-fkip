@@ -2,7 +2,6 @@ import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import Profile from "@/components/Profile";
 import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
-import Image from "next/image";
 import React from "react";
 
 
@@ -19,7 +18,6 @@ const Page = async () => {
         <h1 className="text-3xl">PINTAS FKIP</h1>
         <h1 className="text-2xl mt-3 tracking-tighter">PROFIL</h1>
       </div>
-      <Image src="/defaultuser.png" alt="user-image" width={100} height={100} className="mx-auto w-24 md:w-32" />
       <Profile user={user} />
       <Footer color=""/>
     </>
