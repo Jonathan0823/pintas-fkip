@@ -39,10 +39,12 @@ const Profile = ({ session }: { session: ProfileProps }) => {
     data: user,
     isLoading,
     error,
+    refetch,
   } = useQuery({
     queryKey: ["user", email],
     queryFn: () => getCurrentUserInfo({ email }),
     enabled: !!email, // Only fetch if email is available
+    staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -109,6 +111,7 @@ const Profile = ({ session }: { session: ProfileProps }) => {
         toast.error("User update failed");
       }
       toast.success("User update");
+      refetch();
     } catch {
       toast.dismiss();
       toast.error("User update failed");
