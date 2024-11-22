@@ -14,26 +14,23 @@ import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
 import { User } from "@/types/User";
 
-
-
-
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   status: z.string().min(2).max(50),
   telephone: z.string().min(2).max(50),
   email: z.string().email(),
-  password: z.string().min(3),
+  password: z.string().optional(),
 });
 
 const Profile = ({ user }: { user: User }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-        username: user.name || "",
-        status: user.namaormawa || "",
-        telephone: user.telepon || "",
-        email: user.email || "", //
-        password: "",
+      username: user.name || "",
+      status: user.namaormawa || "",
+      telephone: user.telepon || "",
+      email: user.email || "", //
+      password: "",
     },
   });
 
@@ -60,15 +57,12 @@ const Profile = ({ user }: { user: User }) => {
       toast.dismiss();
       if (!response.ok) {
         toast.dismiss();
-        toast.error("User creation failed");
+        toast.error("User update failed");
       }
-      toast.success("User created");
-
-      form.reset();
+      toast.success("User update");
     } catch {
-      form.reset();
       toast.dismiss();
-      toast.error("User creation failed");
+      toast.error("User update failed");
     }
   }
 
@@ -84,13 +78,13 @@ const Profile = ({ user }: { user: User }) => {
           name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black font-bold text-lg tracking-wider">
+              <FormLabel className="text-black font-bold text-md tracking-wider">
                 NAMA LENGKAP :
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -101,7 +95,7 @@ const Profile = ({ user }: { user: User }) => {
           name="status"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black font-bold text-xl tracking-wider">
+              <FormLabel className="text-black font-bold text-md tracking-wider">
                 {user.isAdmin ? (
                   <>
                     JABATAN<span className="font-sans">/</span>POSISI SAAT INI :
@@ -113,7 +107,7 @@ const Profile = ({ user }: { user: User }) => {
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -124,13 +118,13 @@ const Profile = ({ user }: { user: User }) => {
           name="telephone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black font-bold text-xl tracking-wider">
+              <FormLabel className="text-black font-bold text-md tracking-wider">
                 NO TELEPON :
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -141,13 +135,13 @@ const Profile = ({ user }: { user: User }) => {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black font-bold text-xl tracking-wider">
+              <FormLabel className="text-black font-bold text-md tracking-wider">
                 EMAIL :
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -158,13 +152,13 @@ const Profile = ({ user }: { user: User }) => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-black font-bold text-xl tracking-wider">
+              <FormLabel className="text-black font-bold text-md tracking-wider">
                 PASSWORD :
               </FormLabel>
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-lg font-sans rounded-3xl border-none"
+                  className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
             </FormItem>
@@ -173,7 +167,7 @@ const Profile = ({ user }: { user: User }) => {
         <div
           role="button"
           tabIndex={0}
-          className="mx-auto mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-lg py-2 cursor-pointer"
+          className="mx-auto mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-md py-2 cursor-pointer"
           onClick={() => {
             const form = document.querySelector("form");
             if (form) form.requestSubmit();
