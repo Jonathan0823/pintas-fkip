@@ -4,9 +4,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
-import { IoPersonOutline, IoSettingsOutline, IoSearchOutline } from "react-icons/io5";
+import {
+  IoPersonOutline,
+  IoSettingsOutline,
+  IoSearchOutline,
+} from "react-icons/io5";
 
 const MenuDropdown = () => {
   return (
@@ -24,10 +29,14 @@ const MenuDropdown = () => {
       >
         {/* Dropdown items */}
         <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
-          <IoHomeOutline size={24} />
+        <Link href="/home">
+          <IoHomeOutline />
+        </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
-          <IoPersonOutline size={24} />
+          <Link href="/user">
+            <IoPersonOutline className="text-xl" />
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
           <IoSettingsOutline size={24} />

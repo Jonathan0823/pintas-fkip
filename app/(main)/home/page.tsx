@@ -1,23 +1,10 @@
-import MenuDropdown from "@/components/MenuDropdown";
 import Image from "next/image";
 import React from "react";
 
 const Page = () => {
   return (
-    <div
-      style={{
-        backgroundImage: "url(/bg/bg.png)",
-        backgroundSize: "cover",
-        height: "100vh",
-        width: "100%",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
-      className="w-full flex flex-col items-center relative"
-    >
-      <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5">
-        <MenuDropdown />
-      </div>
+    <>
+     
       <Image
         src="/unsikalogo.png"
         alt="unsika"
@@ -34,7 +21,7 @@ const Page = () => {
         </h2>
         <h2 className="text-4xl tracking-[0.1em]">FKIP UNSIKA</h2>
       </div>
-    </div>
+    </>
   );
 };
 
