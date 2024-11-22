@@ -1,10 +1,15 @@
 import { auth } from "@/auth";
+import Footer from "@/components/Footer";
+import Profile from "@/components/Profile";
 import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 import React from "react";
+
 
 const Page = async () => {
   const session = await auth();
   const user = await getCurrentUserInfo({ email: session?.user?.email || "" });
+  
+  
 
   console.log(user);
   return (
@@ -13,6 +18,9 @@ const Page = async () => {
         <h1 className="text-4xl">PINTAS FKIP</h1>
         <h1 className="text-3xl mt-3 tracking-tighter">PROFIL</h1>
       </div>
+
+      <Profile user={user} />
+      <Footer color=""/>
     </>
   );
 };
