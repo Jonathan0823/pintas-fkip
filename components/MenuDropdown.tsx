@@ -16,32 +16,33 @@ import {
 const MenuDropdown = () => {
   return (
     <DropdownMenu>
-      {/* Dropdown trigger (menu icon) */}
-      <DropdownMenuTrigger className="p-2 rounded-full bg-white shadow-md">
+      {/* The trigger button will be hidden when dropdown is open */}
+      <DropdownMenuTrigger className="p-2 rounded-full bg-white shadow-md border-[#997c5c]">
         <IoMenu className="text-3xl" />
       </DropdownMenuTrigger>
 
       {/* Dropdown content */}
+
       <DropdownMenuContent
-        side="bottom" // Ensures the dropdown opens to the right
-        align="start" // Aligns it to the top of the button
-        className="flex flex-col gap-3 bg-white p-1 shadow-md rounded-xl min-w-4 border border-gray-200"
+        side="bottom"
+        align="start" // Aligns it to the left of the button
+        className="flex flex-col gap-3 border-2 border-[#997c5c] bg-white p-1 shadow-md rounded-xl min-w-4 absolute"
       >
         {/* Dropdown items */}
-        <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
-        <Link href="/home">
-          <IoHomeOutline className="text-xl" />
-        </Link>
+        <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md">
+          <Link href="/home">
+            <IoHomeOutline className="text-xl" />
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
+        <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md">
           <Link href="/user">
             <IoPersonOutline className="text-xl" />
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
+        <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md">
           <IoSettingsOutline size={24} />
         </DropdownMenuItem>
-        <DropdownMenuItem className="flex justify-center items-center !p-2 hover:bg-gray-100 rounded-md">
+        <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md">
           <IoSearchOutline size={24} />
         </DropdownMenuItem>
       </DropdownMenuContent>

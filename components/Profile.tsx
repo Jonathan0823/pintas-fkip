@@ -142,6 +142,7 @@ const Profile = ({ user }: { user: User }) => {
                 <Input
                   {...field}
                   className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
+                  disabled
                 />
               </FormControl>
             </FormItem>
