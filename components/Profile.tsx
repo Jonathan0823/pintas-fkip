@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
-import { User } from "@/types/User";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
+import { useQuery } from "@tanstack/react-query";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -24,18 +25,52 @@ const formSchema = z.object({
   password: z.string().optional(),
 });
 
-const Profile = ({ user }: { user: User }) => {
+type ProfileProps = {
+  name: string | "";
+  email: string | "";
+  image: string | "";
+};
+
+const Profile = ({ session }: { session: ProfileProps }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const email = session.email;
+
+  const {
+    data: user,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["user", email],
+    queryFn: () => getCurrentUserInfo({ email }),
+    enabled: !!email, // Only fetch if email is available
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: user.name || "",
-      status: user.namaormawa || "",
-      telephone: user.telepon || "",
-      email: user.email || "", //
+      username: "",
+      status: "",
+      telephone: "",
+      email: "", //
       password: "",
     },
   });
+
+  useEffect(() => {
+    if (user) {
+      form.reset({
+        username: user.name || "",
+        status: user.namaormawa || "",
+        telephone: user.telepon || "",
+        email: user.email || "",
+        password: "",
+      });
+    }
+  }, [user, form]);
+
+  if (isLoading) return <div>Loading...</div>;
+
+  if (error) return toast.error("User not found");
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -64,7 +99,7 @@ const Profile = ({ user }: { user: User }) => {
           telephone,
           email,
           password,
-          isAdmin: user.isAdmin,
+          isAdmin: user?.isAdmin,
         }),
       });
 
@@ -127,7 +162,7 @@ const Profile = ({ user }: { user: User }) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel className="text-black font-bold text-md tracking-wider">
-                {user.isAdmin ? (
+                {user?.isAdmin ? (
                   <>
                     JABATAN<span className="font-sans">/</span>POSISI SAAT INI :
                   </>

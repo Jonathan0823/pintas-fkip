@@ -4,12 +4,11 @@ import Profile from "@/components/Profile";
 import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 import React from "react";
 
-
 const Page = async () => {
   const session = await auth();
   const user = await getCurrentUserInfo({ email: session?.user?.email || "" });
-  
 
+  console.log(session?.user);
 
   console.log(user);
   return (
@@ -18,8 +17,17 @@ const Page = async () => {
         <h1 className="text-3xl">PINTAS FKIP</h1>
         <h1 className="text-2xl mt-3 tracking-tighter">PROFIL</h1>
       </div>
-      <Profile user={user} />
-      <Footer color=""/>
+      {session?.user && (
+        <Profile
+          session={{
+            ...session.user,
+            name: session.user.name || "",
+            email: session.user.email || "",
+            image: session.user.image || "",
+          }}
+        />
+      )}
+      <Footer color="" />
     </>
   );
 };

@@ -1,4 +1,5 @@
 import MenuDropdown from "@/components/MenuDropdown";
+import Provider from "@/utils/Provider";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
 
@@ -30,7 +31,9 @@ export default function MainLayout({
             <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5">
               <MenuDropdown />
             </div>
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <Provider>{children}</Provider>
+            </SessionProvider>
           </div>
         </div>
       </div>
