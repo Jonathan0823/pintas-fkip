@@ -71,7 +71,7 @@ const Profile = ({ user }: { user: User }) => {
       <Toaster />
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="gap-1 text-black px-10 md:px-5 w-full mt-5 md:mt-10 flex flex-col"
+        className="gap-1 text-black px-10 md:px-5 w-full mt-2 md:mt-3 flex flex-col"
       >
         <FormField
           control={form.control}
@@ -168,7 +168,7 @@ const Profile = ({ user }: { user: User }) => {
         <div
           role="button"
           tabIndex={0}
-          className="mx-auto mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-md py-2 cursor-pointer"
+          className="mx-auto mt-2 md:mt-6 bg-[#86271c] hover:bg-[#691e15] text-white border-2 gap-10 flex items-center justify-center border-white rounded-full px-6 font-bold font-sans text-md py-2 cursor-pointer"
           onClick={() => {
             const form = document.querySelector("form");
             if (form) form.requestSubmit();
