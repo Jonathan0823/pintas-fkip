@@ -13,7 +13,7 @@ export default function MainLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <body className={`${theSeasons.className} antialiased`}>
+    <div className={`${theSeasons.className} antialiased`}>
       <div className="w-full bg-[rgb(204,180,156)]">
         <div className="md:max-w-md mx-auto">
           <div
@@ -34,6 +34,6 @@ export default function MainLayout({
           </div>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
