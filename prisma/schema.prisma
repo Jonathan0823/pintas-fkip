@@ -56,6 +56,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   carts         Cart[]
+  Pinjam        Pinjam[]
  
   @@map("users")
 }
@@ -76,6 +77,7 @@ model Items {
   initialStock  Int @map("initial_stock")
   stock         Int
   carts         Cart[]
+  pinjamItem    PinjamItem[]
  
   @@map("items")
 } 
@@ -91,4 +93,27 @@ model Cart {
  
   @@unique([userId, productId])
   @@map("carts")
+}
+
+model Pinjam {
+  id        String       @id @default(cuid())
+  userId    String       @map("user_id")
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     PinjamItem[] // Link to the junction table
+  createdAt DateTime     @default(now())
+ 
+  @@map("pinjam")
+}
+
+model PinjamItem {
+  id        String   @id @default(cuid())
+  pinjamId  String   @map("pinjam_id")
+  itemId    String   @map("item_id")
+  quantity  Int      @default(1)
+
+  pinjam    Pinjam   @relation(fields: [pinjamId], references: [id], onDelete: Cascade)
+  items     Items    @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([pinjamId, itemId])
+  @@map("pinjam_items")
 }
