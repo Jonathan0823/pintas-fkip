@@ -17,7 +17,7 @@ const Page = () => {
           }}
           className="w-full flex flex-col items-center relative overflow-y-auto bg-fixed md:bg-local"
         >
-          <BackButton className="text-[#997c5c] text-4xl md:text-5xl absolute top-0 left-5"/>
+          <BackButton className="text-[#997c5c] text-4xl md:text-5xl absolute top-4 left-5"/>
           <AddItems />
         </div>
       </div>
