@@ -29,6 +29,7 @@ const Profile = ({ user }: { user: User }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File>();
   const { edgestore } = useEdgeStore();
+  const [disabled, setDisabled] = useState(true);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -113,6 +114,11 @@ const Profile = ({ user }: { user: User }) => {
           onChange={handleImageUpload}
         />
       </div>
+      <p className="font-sans text-white mt-2 hover:cursor-pointer"
+      onClick={() => setDisabled((prev) => !prev)}
+      >
+        Edit Profil
+      </p>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
         className="gap-1 text-black px-10 md:px-5 w-full mt-2 md:mt-3 flex flex-col"
@@ -128,6 +134,7 @@ const Profile = ({ user }: { user: User }) => {
               <FormControl>
                 <Input
                   {...field}
+                  disabled={disabled}
                   className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
@@ -151,6 +158,7 @@ const Profile = ({ user }: { user: User }) => {
               <FormControl>
                 <Input
                   {...field}
+                  disabled={disabled}
                   className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
@@ -168,6 +176,7 @@ const Profile = ({ user }: { user: User }) => {
               <FormControl>
                 <Input
                   {...field}
+                  disabled={disabled}
                   className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
@@ -203,6 +212,7 @@ const Profile = ({ user }: { user: User }) => {
               <FormControl>
                 <Input
                   {...field}
+                  disabled={disabled}
                   className="bg-[#f5e9dd] py-3 md:py-5 pl-5 !text-md font-sans rounded-3xl border-none"
                 />
               </FormControl>
