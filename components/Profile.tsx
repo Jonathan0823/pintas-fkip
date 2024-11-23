@@ -15,6 +15,7 @@ import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import { useState } from "react";
 import { User } from "@/types/User";
+import { useEdgeStore } from "../lib/edgestore";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -26,6 +27,8 @@ const formSchema = z.object({
 
 const Profile = ({ user }: { user: User }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imageFile, setImageFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -41,6 +44,7 @@ const Profile = ({ user }: { user: User }) => {
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
+      setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result as string); // Set the image preview
@@ -54,6 +58,13 @@ const Profile = ({ user }: { user: User }) => {
     const { username, status, telephone, email, password } = values;
 
     try {
+      let imageUrl;
+      if (imageFile) {
+        const res = await edgestore.publicFiles.upload({
+          file: imageFile,
+        });
+        imageUrl = res.url;
+      }
       const response = await fetch("/api/user/update", {
         method: "PATCH",
         headers: {
@@ -66,6 +77,7 @@ const Profile = ({ user }: { user: User }) => {
           email,
           password,
           isAdmin: user.isAdmin,
+          image: imageFile ? imageUrl : "",
         }),
       });
 
@@ -86,10 +98,10 @@ const Profile = ({ user }: { user: User }) => {
       <Toaster />
       <div className="relative w-24 h-24 md:w-32 md:h-32">
         <Image
-          src={user.image || imagePreview || "/userprofile.jpg"}
+          src={imagePreview || user.image || "/userprofile.jpg"}
           alt="user-image"
-          width={100} // Image width in pixels
-          height={100} // Image height in pixels
+          width={100}
+          height={100}
           className="mx-auto w-full h-full object-cover rounded-full cursor-pointer"
           onClick={() => document.getElementById("image-upload")?.click()} // Trigger file input on image click
         />

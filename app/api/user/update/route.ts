@@ -4,15 +4,9 @@ import bcrypt from "bcryptjs";
 
 export async function PATCH(req: Request) {
   const body = await req.json();
-  const { name, namaormawa, telephone, email, password, isAdmin } = body;
+  const { name, namaormawa, telephone, email, password, isAdmin, image } = body;
 
-  if (
-    !name ||
-    !email ||
-    !namaormawa ||
-    !telephone ||
-    isAdmin === undefined
-  ) {
+  if (!name || !email || !namaormawa || !telephone || isAdmin === undefined) {
     return new NextResponse("Missing fields", { status: 400 });
   }
 
@@ -33,6 +27,7 @@ export async function PATCH(req: Request) {
     telepon: string;
     isAdmin: boolean;
     password?: string;
+    image?: string;
   } = {
     name,
     email,
@@ -45,10 +40,14 @@ export async function PATCH(req: Request) {
     updateData.password = await bcrypt.hash(password, 10);
   }
 
+  if (image && image.trim() !== "") {
+    updateData.image = image;
+  }
+
   try {
     const user = await prisma.user.update({
-        where: { email },
-        data: updateData,
+      where: { email },
+      data: updateData,
     });
 
     if (!user) {

@@ -1,9 +1,11 @@
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { logout } from "@/lib/auth-action";
 import Link from "next/link";
 import { IoMenu } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
@@ -12,8 +14,13 @@ import {
   IoSettingsOutline,
   IoSearchOutline,
 } from "react-icons/io5";
+import { IoExitOutline } from "react-icons/io5";
 
 const MenuDropdown = () => {
+  const handleLogout = async () => {
+    await logout();
+  };
+
   return (
     <DropdownMenu>
       {/* The trigger button will be hidden when dropdown is open */}
@@ -44,6 +51,14 @@ const MenuDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md">
           <IoSearchOutline size={24} />
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={handleLogout}
+          className="flex justify-center text-[#997c5c] items-center !p-2 hover:bg-gray-100 rounded-md"
+        >
+          <div>
+            <IoExitOutline className="text-xl" />
+          </div>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

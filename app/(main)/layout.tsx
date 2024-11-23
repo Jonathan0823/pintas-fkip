@@ -1,4 +1,5 @@
 import MenuDropdown from "@/components/MenuDropdown";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 import Provider from "@/utils/Provider";
 import { SessionProvider } from "next-auth/react";
 import localFont from "next/font/local";
@@ -32,7 +33,9 @@ export default function MainLayout({
               <MenuDropdown />
             </div>
             <SessionProvider>
-              <Provider>{children}</Provider>
+              <Provider>
+                <EdgeStoreProvider>{children}</EdgeStoreProvider>
+              </Provider>
             </SessionProvider>
           </div>
         </div>
