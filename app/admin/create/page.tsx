@@ -1,4 +1,5 @@
 import AddItems from "@/components/AddItems";
+import BackButton from "@/components/BackButton";
 import React from "react";
 
 const Page = () => {
@@ -14,8 +15,9 @@ const Page = () => {
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
           }}
-          className="w-full flex flex-col items-center relative overflow-hidden bg-fixed md:bg-local"
+          className="w-full flex flex-col items-center relative overflow-y-auto bg-fixed md:bg-local"
         >
+          <BackButton className="text-[#997c5c] text-4xl md:text-5xl absolute top-0 left-5"/>
           <AddItems />
         </div>
       </div>

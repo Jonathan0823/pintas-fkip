@@ -12,7 +12,7 @@ export default function AddItems() {
 
   return (
     <div className="w-full px-5">
-      <h1 className="text-xl font-semibold">EDIT</h1>
+      <h1 className="text-xl font-semibold text-center">EDIT</h1>
 
       <div className="flex-1 w-full">
         <Card className="w-full mx-auto bg-white/90 p-6 space-y-6">
