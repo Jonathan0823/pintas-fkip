@@ -41,12 +41,10 @@ const LoginForm = () => {
     try {
       await loginWithCreds(email, password);
       toast.dismiss();
-      toast.success("Login success");
     } catch (err) {
       if (err instanceof Error) {
         if (err.message.includes("NEXT_REDIRECT")) {
           toast.dismiss();
-          toast.success("Login success");
         } else {
           toast.dismiss();
           toast.error("Login failed");

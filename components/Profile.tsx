@@ -97,7 +97,7 @@ const Profile = ({ user }: { user: User }) => {
   return (
     <Form {...form}>
       <Toaster />
-      <div className="relative w-24 h-24 md:w-32 md:h-32">
+      <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto">
         <Image
           src={imagePreview || user.image || "/userprofile.jpg"}
           alt="user-image"
@@ -114,7 +114,7 @@ const Profile = ({ user }: { user: User }) => {
           onChange={handleImageUpload}
         />
       </div>
-      <p className="font-sans text-white mt-2 hover:cursor-pointer"
+      <p className="font-sans text-white mt-2 hover:cursor-pointer mx-auto text-center"
       onClick={() => setDisabled((prev) => !prev)}
       >
         Edit Profil

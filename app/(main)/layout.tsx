@@ -27,7 +27,7 @@ export default function MainLayout({
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
             }}
-            className="w-full flex flex-col items-center relative"
+            className="w-full flex flex-col items-center relative overflow-hidden bg-fixed md:bg-local"
           >
             <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5">
               <MenuDropdown />
