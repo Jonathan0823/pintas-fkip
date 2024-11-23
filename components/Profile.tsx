@@ -13,9 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { User } from "@/types/User";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -25,54 +24,19 @@ const formSchema = z.object({
   password: z.string().optional(),
 });
 
-type ProfileProps = {
-  name: string | "";
-  email: string | "";
-  image: string | "";
-};
-
-const Profile = ({ session }: { session: ProfileProps }) => {
+const Profile = ({ user }: { user: User }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const email = session.email;
-
-  const {
-    data: user,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ["user", email],
-    queryFn: () => getCurrentUserInfo(email),
-    enabled: !!email, // Only fetch if email is available
-    staleTime: 1000 * 60 * 5, // Data is fresh for 5 minutes
-  });
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      status: "",
-      telephone: "",
-      email: "", //
+      username: user.name || "",
+      status: user.namaormawa || "",
+      telephone: user.telepon || "",
+      email: user.email || "",
       password: "",
     },
   });
-
-  useEffect(() => {
-    if (user) {
-      form.reset({
-        username: user.name || "",
-        status: user.namaormawa || "",
-        telephone: user.telepon || "",
-        email: user.email || "",
-        password: "",
-      });
-    }
-  }, [user, form]);
-
-  if (isLoading) return <div>Loading...</div>;
-
-  if (error) return toast.error("User not found");
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -101,7 +65,7 @@ const Profile = ({ session }: { session: ProfileProps }) => {
           telephone,
           email,
           password,
-          isAdmin: user?.isAdmin,
+          isAdmin: user.isAdmin,
         }),
       });
 
@@ -110,8 +74,7 @@ const Profile = ({ session }: { session: ProfileProps }) => {
         toast.dismiss();
         toast.error("User update failed");
       }
-      toast.success("User update");
-      refetch();
+      toast.success("User updated");
     } catch {
       toast.dismiss();
       toast.error("User update failed");
@@ -123,7 +86,7 @@ const Profile = ({ session }: { session: ProfileProps }) => {
       <Toaster />
       <div className="relative w-24 h-24 md:w-32 md:h-32">
         <Image
-          src={imagePreview || "/defaultuser.png"}
+          src={user.image || imagePreview || "/userprofile.jpg"}
           alt="user-image"
           width={100} // Image width in pixels
           height={100} // Image height in pixels
