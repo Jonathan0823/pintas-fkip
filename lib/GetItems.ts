@@ -17,3 +17,12 @@ export const SearchItems = async (key: string) => {
   });
   return res;
 };
+
+export const GetItem = async (id: string) => {
+  const res = await prisma.items.findUnique({
+    where: {
+      id: id,
+    },
+  });
+  return res;
+};
