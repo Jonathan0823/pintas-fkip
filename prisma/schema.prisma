@@ -55,6 +55,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  carts         Cart[]
  
   @@map("users")
 }
@@ -66,4 +67,28 @@ model VerificationToken {
  
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model Items {
+  id            String   @id @default(cuid())
+  name          String
+  image         String
+  initialStock  Int @map("initial_stock")
+  stock         Int
+  carts         Cart[]
+ 
+  @@map("items")
+} 
+
+
+model Cart {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  productId String   @map("product_id")
+  quantity  Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items     Items  @relation(fields: [productId], references: [id], onDelete: Cascade)
+ 
+  @@unique([userId, productId])
+  @@map("carts")
 }
