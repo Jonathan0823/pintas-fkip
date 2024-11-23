@@ -2,10 +2,10 @@
 
 import { prisma } from "./prisma"
 
-export async function getCurrentUserInfo({email}: {email: string}) {
+export async function getCurrentUserInfo(email: string) {
     const res = await prisma.user.findFirst({
         where: {
-            email
+            email: email,
         }
     })
 
