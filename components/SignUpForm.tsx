@@ -39,6 +39,10 @@ const SignUpForm = ({ type }: { type: string }) => {
     toast.loading("Creating user...");
     const { username, status, telephone, email, password } = values;
 
+    if (!username || !status || !telephone || !email || !password) {
+      return toast.error("Please fill in all fields");
+    }
+
     try {
       const response = await fetch("/api/auth/register", {
         method: "POST",
@@ -178,7 +182,7 @@ const SignUpForm = ({ type }: { type: string }) => {
           onClick={() => {
             const form = document.querySelector("form");
             if (form) form.requestSubmit();
-          }} // Submit the form
+          }}
         >
           SIGN UP
           <FaUserCircle className="text-3xl" />
