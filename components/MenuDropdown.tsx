@@ -72,7 +72,7 @@ const MenuDropdown = () => {
         </DropdownMenuItem>
         {isAdmin && (
           <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-1 md:!p-2 hover:bg-gray-100 rounded-md">
-            <Link href="/admin">
+            <Link href="/admin/create">
               <FaPlus className="text-xl" />
             </Link>
           </DropdownMenuItem>

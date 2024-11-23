@@ -11,13 +11,9 @@ export default function AddItems() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#e5d5c5]">
-      {/* Header */}
-      <div className="bg-[#b39b7d] p-4 text-center text-white">
-        <h1 className="text-xl font-semibold">EDIT</h1>
-      </div>
+    <div>
+      <h1 className="text-xl font-semibold">EDIT</h1>
 
-      {/* Main Content */}
       <div className="flex">
         {/* Form Content */}
         <div className="flex-1 p-4">
