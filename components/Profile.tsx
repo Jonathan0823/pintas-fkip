@@ -83,6 +83,17 @@ const Profile = ({ user }: { user: User }) => {
     }
   };
 
+  const handleImageClick = () => {
+    // Reset the file input value to ensure change event triggers, even when selecting the same image
+    const fileInput = document.getElementById(
+      "image-upload"
+    ) as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = ""; // Reset file input
+      fileInput.click(); // Trigger file input dialog
+    }
+  };
+
   const cropperRef = useRef<ReactCropperElement | null>(null);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
@@ -135,7 +146,7 @@ const Profile = ({ user }: { user: User }) => {
           width={100}
           height={100}
           className="mx-auto w-full h-full object-cover rounded-full cursor-pointer"
-          onClick={() => document.getElementById("image-upload")?.click()} // Trigger file input on image click
+          onClick={handleImageClick}
         />
         <input
           id="image-upload"
@@ -147,28 +158,21 @@ const Profile = ({ user }: { user: User }) => {
       </div>
       {showCropper && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className=" p-4 rounded-md max-w-md w-full">
-            <div className="relative">
-              {/* Close button */}
-              <button
-                onClick={showCropper ? () => setShowCropper(false) : undefined}
-                className="absolute top-2 right-2 text-black"
-              >
-                X
-              </button>
-
-              {/* Cropper component */}
-              <Cropper
-                src={imagePreview || ""}
-                style={{ height: 400, width: "100%" }}
-                aspectRatio={1} // Make it a square crop
-                preview=".img-preview"
-                guides={false}
-                ref={cropperRef}
-              />
-            </div>
-
-            {/* Crop Button */}
+          <div className="p-4 rounded-md max-w-md w-full">
+            <button
+              onClick={() => setShowCropper(false)}
+              className="text-white text-xl font-bold"
+            >
+              X
+            </button>
+            <Cropper
+              src={imagePreview || ""}
+              style={{ height: 400, width: "100%" }}
+              aspectRatio={1}
+              preview=".img-preview"
+              guides={false}
+              ref={cropperRef}
+            />
             <button
               onClick={handleCrop}
               className="bg-[#a17659] text-white p-2 rounded-full mt-4 w-full"
