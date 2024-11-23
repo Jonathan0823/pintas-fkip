@@ -78,6 +78,7 @@ model Items {
   stock         Int
   carts         Cart[]
   pinjamItem    PinjamItem[]
+  available     Boolean
  
   @@map("items")
 } 

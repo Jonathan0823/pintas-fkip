@@ -23,7 +23,6 @@ const MenuDropdown = () => {
   const { data: UserSession } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
   const handleLogout = async () => {
-    setIsAdmin(false);
     await logout();
   };
 

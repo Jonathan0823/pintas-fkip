@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { SessionProvider } from "next-auth/react";
+import { EdgeStoreProvider } from "@/lib/edgestore";
 
 export const metadata: Metadata = {
   title: "Pintas FKIP",
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body className={`${theSeasons.className} antialiased`}>
         <div className="w-full bg-[rgb(204,180,156)]">
           <div className="md:max-w-md mx-auto">
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+              <EdgeStoreProvider>{children}</EdgeStoreProvider>
+            </SessionProvider>
           </div>
         </div>
       </body>
