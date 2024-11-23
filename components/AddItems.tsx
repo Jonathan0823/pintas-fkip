@@ -101,6 +101,12 @@ export default function AddItems() {
       await CreateItems(item);
       toast.dismiss();
       toast.success("Item uploaded successfully");
+      setItemName("Items Name");
+      setImageFile(null);
+      setImagePreview(null);
+      setCroppedImage(null);
+      setItemCount(0);
+      setTersedia(true);
     } catch (error) {
       toast.dismiss();
       toast.error("Failed to upload item");
@@ -142,7 +148,7 @@ export default function AddItems() {
       </div>
 
       <div className="flex-1 w-full">
-        <Card className="w-full mx-auto bg-white/90 min-h-screen p-2 space-y-6">
+        <Card className="w-full mx-auto bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">
           <div className="space-y-2 flex flex-col w-full items-center justify-center">
             <div className="flex justify-center">
               <button
@@ -177,7 +183,7 @@ export default function AddItems() {
             <div className="flex justify-center">
               <input
                 type="text"
-                className="px-20 py-1 bg-[#9d7c58] text-white rounded-full text-center"
+                className="md:px-20 px-10 py-1 bg-[#9d7c58] text-white rounded-full text-center"
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
                 onFocus={() => setItemName("")}
@@ -209,7 +215,7 @@ export default function AddItems() {
           </div>
 
           <div className="flex flex-col gap-4 border-[5px] border-[#9d7c58]">
-            <div className="flex justify-between items-center px-2 py-2 gap-4 bg-[#b89e81] text-white">
+            <div className="flex justify-between items-center px-2 py-2 gap-4 bg-[#b89e81] text-white text-xs md:text-base">
               <button
                 className={`text-center mb-2 px-2 rounded-full w-36 py-1 font-semibold ${
                   tersedia ? "bg-[#6b1010]" : ""
@@ -219,7 +225,7 @@ export default function AddItems() {
                 TERSEDIA
               </button>
               <button
-                className={`text-center mb-2 px-2 rounded-full w-36 py-1 font-semibold ${
+                className={`text-center mb-2 px-2 rounded-full w-36 md:py-1 font-semibold ${
                   !tersedia ? "bg-[#6b1010]" : ""
                 }`}
                 onClick={() => setTersedia(false)}
@@ -227,7 +233,7 @@ export default function AddItems() {
                 TIDAK TERSEDIA
               </button>
             </div>
-            <div className="justify-end flex p-2">
+            <div className="justify-end flex p-1 md:p-2">
               <button
                 className="px-5 py-3 rounded-full right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
                 onClick={handleSubmit}
