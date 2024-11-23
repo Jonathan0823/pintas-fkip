@@ -13,9 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { User } from "@/types/User";
 import { useEdgeStore } from "../lib/edgestore";
+import Cropper, { ReactCropperElement } from "react-cropper"; // Import Cropper and its type
+import "cropperjs/dist/cropper.css"; // Import Cropper styles
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -30,6 +32,8 @@ const Profile = ({ user }: { user: User }) => {
   const [imageFile, setImageFile] = useState<File>();
   const { edgestore } = useEdgeStore();
   const [disabled, setDisabled] = useState(true);
+  const [croppedImage, setCroppedImage] = useState<string | null>(null);
+  const [showCropper, setShowCropper] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -48,11 +52,38 @@ const Profile = ({ user }: { user: User }) => {
       setImageFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string); // Set the image preview
+        setImagePreview(reader.result as string);
+        setShowCropper(true);
       };
       reader.readAsDataURL(file);
     }
   };
+
+  const handleCrop = () => {
+    const cropper = cropperRef.current?.cropper;
+    if (cropper) {
+      const croppedBase64 = cropper.getCroppedCanvas().toDataURL();
+
+      const byteString = atob(croppedBase64.split(",")[1]);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const uintArray = new Uint8Array(arrayBuffer);
+
+      for (let i = 0; i < byteString.length; i++) {
+        uintArray[i] = byteString.charCodeAt(i);
+      }
+
+      const blob = new Blob([arrayBuffer], { type: "image/jpeg" });
+
+      const file = new File([blob], "cropped-image.jpg", {
+        type: "image/jpeg",
+      });
+      setImageFile(file);
+      setCroppedImage(croppedBase64);
+      setShowCropper(false);
+    }
+  };
+
+  const cropperRef = useRef<ReactCropperElement | null>(null);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     toast.loading("Updating user...");
@@ -99,7 +130,7 @@ const Profile = ({ user }: { user: User }) => {
       <Toaster />
       <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto">
         <Image
-          src={imagePreview || user.image || "/userprofile.jpg"}
+          src={croppedImage || imagePreview || user.image || "/userprofile.jpg"}
           alt="user-image"
           width={100}
           height={100}
@@ -114,8 +145,43 @@ const Profile = ({ user }: { user: User }) => {
           onChange={handleImageUpload}
         />
       </div>
-      <p className="font-sans text-white mt-2 hover:cursor-pointer mx-auto text-center"
-      onClick={() => setDisabled((prev) => !prev)}
+      {showCropper && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className=" p-4 rounded-md max-w-md w-full">
+            <div className="relative">
+              {/* Close button */}
+              <button
+                onClick={showCropper ? () => setShowCropper(false) : undefined}
+                className="absolute top-2 right-2 text-black"
+              >
+                X
+              </button>
+
+              {/* Cropper component */}
+              <Cropper
+                src={imagePreview || ""}
+                style={{ height: 400, width: "100%" }}
+                aspectRatio={1} // Make it a square crop
+                preview=".img-preview"
+                guides={false}
+                ref={cropperRef}
+              />
+            </div>
+
+            {/* Crop Button */}
+            <button
+              onClick={handleCrop}
+              className="bg-[#a17659] text-white p-2 rounded-full mt-4 w-full"
+            >
+              Crop Image
+            </button>
+          </div>
+        </div>
+      )}
+
+      <p
+        className="font-sans text-white mt-2 hover:cursor-pointer mx-auto text-center"
+        onClick={() => setDisabled((prev) => !prev)}
       >
         Edit Profil
       </p>
