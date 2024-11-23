@@ -5,7 +5,7 @@ import ItemsContainer from "./ItemsContainer";
 const MainMenu = () => {
   return (
     <div className="w-full mt-2 px-7">
-      <div className="flex items-center border-2 w-full rounded-2xl py-1 px-2 bg-white">
+      <div className="flex items-center border-2 w-full rounded-2xl py-0 md:py-1 px-2 bg-white">
         <input
           type="text"
           placeholder="Search..."

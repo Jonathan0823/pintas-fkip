@@ -8,6 +8,9 @@ const Page = async () => {
   const session = await auth();
   const user = await getCurrentUserInfo(session?.user?.email || "");
 
+  console.log(user);
+  console.log(session);
+
   return (
     <>
       <div className="text-white mt-5 md:mt-10 text-center space-y-1 md:space-y-2">
