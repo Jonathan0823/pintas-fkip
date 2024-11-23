@@ -1,8 +1,17 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { prisma } from "./lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
+import { getCurrentUserInfo } from "./lib/GetCurrentUserInfo";
+
+declare module "next-auth" {
+  interface Session {
+    user: {
+      isAdmin: boolean;
+    } & DefaultSession["user"];
+  }
+}
 
 export const {
   handlers: { GET, POST },
@@ -47,4 +56,17 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }) {
+      const userInfo = await getCurrentUserInfo(token.email || "");
+      session.user.isAdmin = userInfo?.isAdmin || false;
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+      }
+      return token;
+    },
+  },
 });

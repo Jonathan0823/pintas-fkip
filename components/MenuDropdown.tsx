@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/lib/auth-action";
-import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -24,16 +23,20 @@ const MenuDropdown = () => {
   const { data: UserSession } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
   const handleLogout = async () => {
+    setIsAdmin(false);
     await logout();
   };
 
   useEffect(() => {
-    if (!UserSession) return;
-    const checkAdmin = async () => {
-      const admin = getCurrentUserInfo(UserSession?.user?.email || "");
-      setIsAdmin((await admin)?.isAdmin || false);
-    };
-    checkAdmin();
+    if (!UserSession) {
+      setIsAdmin(false);
+      return;
+    }
+    console.log(UserSession);
+
+    if (UserSession.user.isAdmin) {
+      setIsAdmin(true);
+    }
   }, [UserSession]);
 
   return (
