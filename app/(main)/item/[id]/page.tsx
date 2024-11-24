@@ -8,6 +8,8 @@ const Page = async ({ params }: { params: Params }) => {
   const { id } = await params;
   const item = await GetItem(id);
   console.log(item);
+
+  
   return (
     <div>
       <div className="text-white text-2xl md:text-3xl absolute p-2 top-16 right-5 rounded-full bg-[#a17659] shadow-md border-[#997c5c]">
