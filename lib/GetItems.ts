@@ -1,4 +1,5 @@
 "use server";
+import { ItemType } from "@/types/Items";
 import { prisma } from "./prisma";
 
 export const GetItems = async () => {
@@ -26,3 +27,23 @@ export const GetItem = async (id: string) => {
   });
   return res;
 };
+
+export const EditItem = async (data: ItemType) => {
+  const res = await prisma.items.update({
+    where: {
+      id: data.id,
+    },
+    data: data,
+  });
+  return res;
+};
+
+
+export const DeleteItem = async (id: string) => {
+  const res = await prisma.items.delete({
+    where: {
+      id: id,
+    },
+  });
+  return res;
+}
