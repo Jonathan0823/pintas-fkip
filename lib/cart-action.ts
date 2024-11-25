@@ -8,6 +8,9 @@ export const getCartByUserId = async (userId: string) => {
     where: {
       userId,
     },
+    include: {
+      items: true,
+    },
   });
   return cart;
 };

@@ -1,58 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, Minus, Plus } from "lucide-react";
 import Image from "next/image";
-
-interface Item {
-  id: string;
-  name: string;
-  image: string;
-  quantity: number;
-  selected: boolean;
-}
+import { useSession } from "next-auth/react";
+import { getCartByUserId } from "@/lib/cart-action";
+import { CartType } from "@/types/Cart";
 
 export default function Page() {
-  const [items, setItems] = useState<Item[]>([
-    {
-      id: "1",
-      name: "Mimbar",
-      image: "/placeholder.svg?height=80&width=80",
-      quantity: 1,
-      selected: true,
-    },
-    {
-      id: "2",
-      name: "Kabel HDMI",
-      image: "/placeholder.svg?height=80&width=80",
-      quantity: 3,
-      selected: true,
-    },
-    {
-      id: "3",
-      name: "Sofa",
-      image: "/placeholder.svg?height=80&width=80",
-      quantity: 1,
-      selected: true,
-    },
-    {
-      id: "4",
-      name: "Kursi Futura",
-      image: "/placeholder.svg?height=80&width=80",
-      quantity: 1,
-      selected: false,
-    },
-    {
-      id: "5",
-      name: "Kursi Chitose",
-      image: "/placeholder.svg?height=80&width=80",
-      quantity: 1,
-      selected: false,
-    },
-  ]);
+  const { data: session } = useSession();
+  const [items, setItems] = useState<CartType[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
-  const selectedCount = items.filter((item) => item.selected).length;
+  const FetchData = async () => {
+    if (!session) return;
+    try {
+      const data = await getCartByUserId(session.user.id);
+      setItems(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    FetchData();
+  }, [session]);
+
 
   const updateQuantity = (id: string, increment: boolean) => {
     setItems(
@@ -69,12 +42,11 @@ export default function Page() {
   };
 
   const toggleSelection = (id: string) => {
-    setItems(
-      items.map((item) =>
-        item.id === id ? { ...item, selected: !item.selected } : item
-      )
+    setSelectedItems((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
+  const selectedCount = selectedItems.length;
 
   return (
     <div className="w-full bg-[rgb(204,180,156)] font-sans">
@@ -84,7 +56,7 @@ export default function Page() {
             <Button variant="ghost" size="icon" className="text-white">
               <ChevronLeft className="h-6 w-6" />
             </Button>
-            <h1 className="text-xl font-medium">PINTAS Saya (5)</h1>
+            <h1 className="text-xl font-medium">PINTAS Saya ({items.length})</h1>
           </div>
 
           <div className="flex flex-col gap-2">
@@ -97,20 +69,20 @@ export default function Page() {
                   className="w-6 h-6 border-2 rounded flex items-center justify-center cursor-pointer"
                   onClick={() => toggleSelection(item.id)}
                 >
-                  {item.selected && (
-                    <div className="w-4 h-4 bg-green-500 rounded-sm" />
+                  {selectedItems.includes(item.id) && (
+                    <div className="w-3 h-3 bg-white rounded-full" />
                   )}
                 </div>
                 <div className="relative w-20 h-20 rounded overflow-hidden">
                   <Image
-                    src={item.image}
-                    alt={item.name}
+                    src={item.items?.image || "/defaultitems.png"}
+                    alt={item.items?.name || "item"}
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="flex-1">
-                  <h2 className="text-lg font-medium">{item.name}</h2>
+                  <h2 className="text-lg font-medium">{item.items?.name}</h2>
                   <div className="h-4 w-32 bg-white/20 rounded mt-1" />
                 </div>
                 <div className="flex items-center gap-2">
