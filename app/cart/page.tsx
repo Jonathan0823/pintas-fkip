@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { getCartByUserId } from "@/lib/cart-action";
 import { CartType } from "@/types/Cart";
+import BackButton from "@/components/BackButton";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -25,7 +26,6 @@ export default function Page() {
   useEffect(() => {
     FetchData();
   }, [session]);
-
 
   const updateQuantity = (id: string, increment: boolean) => {
     setItems(
@@ -53,10 +53,11 @@ export default function Page() {
       <div className="md:max-w-md mx-auto">
         <div className="min-h-screen bg-[#8B6E4F] text-white">
           <div className="flex items-center gap-2 p-4 bg-[#8B6E4F] sticky top-0">
-            <Button variant="ghost" size="icon" className="text-white">
-              <ChevronLeft className="h-6 w-6" />
-            </Button>
-            <h1 className="text-xl font-medium">PINTAS Saya ({items.length})</h1>
+            <BackButton className="text-white text-2xl md:text-3xl mt-1" />
+
+            <h1 className="text-xl font-medium">
+              PINTAS Saya ({items.length})
+            </h1>
           </div>
 
           <div className="flex flex-col gap-2">
