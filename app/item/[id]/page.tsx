@@ -45,7 +45,7 @@ const Page = async ({ params }: { params: Params }) => {
             </Link>
           </div>
           {session?.user.isAdmin && item && <EditItems item={item} />}
-          {!session?.user.isAdmin && item && <ItemComp item={item} />}
+          {!session?.user.isAdmin && item && <ItemComp item={item} userId={session?.user.id || ""} />}
         </div>
       </div>
     </div>

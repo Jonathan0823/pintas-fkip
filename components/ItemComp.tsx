@@ -7,14 +7,26 @@ import { ItemType } from "@/types/Items";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import BackButton from "./BackButton";
+import { addToCart } from "@/lib/cart-action";
 
-export default function ItemComp({ item }: { item: ItemType }) {
+export default function ItemComp({ item, userId }: { item: ItemType, userId: string }) {
   const [itemCount, setItemCount] = useState(0);
 
-  const handleAddToCart = () => {
-    console.log("Adding to Cart");
-    console.log(item.id, itemCount);
-    toast.success("Added to Cart");
+  const handleAddToCart = async () => {
+    if (itemCount === 0) {
+      return toast.error("Quantity cannot be 0");
+    }
+    toast.loading("Adding to Cart");
+    console.log(itemCount, userId);
+    try{
+      await addToCart({ userId, productId: item.id, quantity: itemCount, id: "" });
+      toast.dismiss();
+      toast.success("Added to Cart");
+    } catch (error) {
+      console.log(error);
+      toast.dismiss();
+      toast.error("Failed to add to Cart");
+    }
   };
 
   return (
