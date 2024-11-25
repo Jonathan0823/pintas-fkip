@@ -100,7 +100,7 @@ model Pinjam {
   id        String       @id @default(cuid())
   userId    String       @map("user_id")
   user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  items     PinjamItem[] // Link to the junction table
+  items     PinjamItem[] 
   createdAt DateTime     @default(now())
   startDate DateTime     @map("start_date")
   endDate   DateTime     @map("end_date")
