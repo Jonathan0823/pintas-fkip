@@ -1,5 +1,6 @@
 "use server";
 import { prisma } from "@/lib/prisma";
+import { removeFromCartByUserId } from "./cart-action";
 
 export const checkoutCartAndCreatePinjam = async (
   userId: string,
@@ -40,11 +41,7 @@ export const checkoutCartAndCreatePinjam = async (
       })),
     });
 
-    await prisma.cart.deleteMany({
-      where: {
-        userId,
-      },
-    });
+    await removeFromCartByUserId(userId);
 
     return pinjam;
   } catch (error) {

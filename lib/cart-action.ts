@@ -3,6 +3,15 @@
 import { CartType } from "@/types/Cart";
 import { prisma } from "./prisma";
 
+export const getCartByUserId = async (userId: string) => {
+  const cart = await prisma.cart.findMany({
+    where: {
+      userId,
+    },
+  });
+  return cart;
+};
+
 export const addToCart = async (item: CartType) => {
   const cart = await prisma.cart.create({
     data: {
