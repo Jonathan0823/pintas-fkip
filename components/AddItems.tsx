@@ -6,10 +6,10 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css"; // Import Cropper styles
-import { CreateItems } from "@/lib/CreateItems";
 import { ItemType } from "@/types/Items";
 import { useEdgeStore } from "@/lib/edgestore";
 import toast, { Toaster } from "react-hot-toast";
+import { CreateItems } from "@/lib/item-action";
 
 export default function AddItems() {
   const [itemCount, setItemCount] = useState(0);

@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import EditItems from "@/components/EditItems";
-import { GetItem } from "@/lib/GetItems";
+import { GetItem } from "@/lib/item-action";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 
@@ -13,7 +13,6 @@ const Page = async ({ params }: { params: Params }) => {
   const session = await auth();
   console.log(session);
 
-  
   return (
     <div>
       <div className="text-white text-2xl md:text-3xl absolute p-2 top-16 right-5 rounded-full bg-[#a17659] shadow-md border-[#997c5c]">
@@ -21,7 +20,7 @@ const Page = async ({ params }: { params: Params }) => {
           <IoCartOutline className="transition-transform -rotate-12 hover:rotate-0" />
         </Link>
       </div>
-      {session?.user.isAdmin && item && <EditItems item={item}/>}
+      {session?.user.isAdmin && item && <EditItems item={item} />}
     </div>
   );
 };

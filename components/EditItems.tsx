@@ -9,7 +9,7 @@ import "cropperjs/dist/cropper.css";
 import { ItemType } from "@/types/Items";
 import { useEdgeStore } from "@/lib/edgestore";
 import toast, { Toaster } from "react-hot-toast";
-import { EditItem } from "@/lib/GetItems";
+import { EditItem } from "@/lib/item-action";
 
 export default function EditItems({ item }: { item: ItemType }) {
   const [itemCount, setItemCount] = useState(item.stock);

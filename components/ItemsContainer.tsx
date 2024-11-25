@@ -1,4 +1,4 @@
-import { GetItems } from "@/lib/GetItems";
+import { GetItems } from "@/lib/item-action";
 import Image from "next/image";
 import Link from "next/link";
 
