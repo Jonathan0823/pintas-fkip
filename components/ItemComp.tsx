@@ -11,14 +11,14 @@ export default function EditItems({ item }: { item: ItemType }) {
   const [itemCount, setItemCount] = useState(0);
 
   const handleAddToCart = () => {
-    console.log("Ordering item");
-    toast.success("Item ordered");
+    console.log("Adding to Cart");
+    toast.success("Added to Cart");
   };
 
   return (
     <div className="w-full px-5 font-sans overflow-hidden">
       <div className="my-4 py-1 w-32 mx-auto text-white border-dashed rounded-full border-[#dcc0a9] border-2 bg-[#9d7c58]">
-        <h1 className="text-xl font-semibold text-center">EDIT</h1>
+        <h1 className="text-xl font-semibold text-center">ITEM</h1>
       </div>
       <Toaster />
 
