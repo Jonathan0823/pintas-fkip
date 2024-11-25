@@ -110,12 +110,14 @@ export default function Page() {
           </div>
 
           <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#fbf5f0] md:max-w-md mx-auto border-t border-white/20">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-[#9d7c58]">Pilihan ({selectedCount})</span>
+            <div className="flex items-center text-xl justify-between mb-4">
+              <span className="text-[#9d7c58] font-bold">
+                Pilihan ({selectedCount})
+              </span>
+              <Button className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white">
+                Next
+              </Button>
             </div>
-            <Button className="w-full bg-[#86271c] hover:bg-[#682411] text-white">
-              Next
-            </Button>
           </div>
         </div>
       </div>
