@@ -13,14 +13,33 @@ export const getCartByUserId = async (userId: string) => {
 };
 
 export const addToCart = async (item: CartType) => {
-  const cart = await prisma.cart.create({
-    data: {
+  const existingCart = await prisma.cart.findFirst({
+    where: {
       userId: item.userId,
       productId: item.productId,
-      quantity: item.quantity,
     },
   });
-  return cart;
+  if (existingCart) {
+    return await prisma.cart.update({
+      where: {
+        id: existingCart.id,
+      },
+      data: {
+        quantity: {
+          increment: item.quantity,
+        },
+      },
+    });
+  } else {
+    const cart = await prisma.cart.create({
+      data: {
+        userId: item.userId,
+        productId: item.productId,
+        quantity: item.quantity,
+      },
+    });
+    return cart;
+  }
 };
 
 export const removeFromCart = async (id: string) => {
