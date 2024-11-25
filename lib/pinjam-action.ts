@@ -1,0 +1,54 @@
+"use server";
+import { prisma } from "@/lib/prisma";
+
+export const checkoutCartAndCreatePinjam = async (
+  userId: string,
+  startDate: Date,
+  endDate: Date
+) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+  const cartItems = await prisma.cart.findMany({
+    where: { userId },
+    include: {
+      items: true,
+    },
+  });
+
+  if (cartItems.length === 0 || !user) {
+    throw new Error("No items in the cart to checkout");
+  }
+
+  try {
+    const pinjam = await prisma.pinjam.create({
+      data: {
+        userId,
+        namaOrmawa: user.namaormawa ?? "defaultOrmawa",
+        startDate,
+        endDate,
+      },
+    });
+
+    await prisma.pinjamItem.createMany({
+      data: cartItems.map((cart) => ({
+        pinjamId: pinjam.id,
+        itemId: cart.productId,
+        quantity: cart.quantity,
+      })),
+    });
+
+    await prisma.cart.deleteMany({
+      where: {
+        userId,
+      },
+    });
+
+    return pinjam;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to checkout cart");
+  }
+};
