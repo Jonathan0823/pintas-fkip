@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { Card } from "@/components/ui/card";
 import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
@@ -7,14 +7,13 @@ import { ItemType } from "@/types/Items";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-
 export default function EditItems({ item }: { item: ItemType }) {
   const [itemCount, setItemCount] = useState(0);
 
-  const handleOrder = () => {
+  const handleAddToCart = () => {
     console.log("Ordering item");
     toast.success("Item ordered");
-  }
+  };
 
   return (
     <div className="w-full px-5 font-sans overflow-hidden">
@@ -22,7 +21,6 @@ export default function EditItems({ item }: { item: ItemType }) {
         <h1 className="text-xl font-semibold text-center">EDIT</h1>
       </div>
       <Toaster />
-
 
       <div className="flex-1 w-full">
         <Card className="w-full mx-auto bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">
@@ -61,7 +59,7 @@ export default function EditItems({ item }: { item: ItemType }) {
                 type="number"
                 className="text-xl font-semibold min-w-[3ch] text-center bg-transparent border-none outline-none"
                 value={`${itemCount} / ${item.stock}`}
-                disabled
+                onChange={(e) => setItemCount(parseInt(e.target.value))}
               />
               <button
                 onClick={() => setItemCount((prev) => Math.min(100, prev + 1))}
@@ -82,7 +80,7 @@ export default function EditItems({ item }: { item: ItemType }) {
             <div className="justify-end flex p-1 md:p-2">
               <button
                 className="px-5 py-3 rounded-full right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
-                onClick={handleOrder}
+                onClick={handleAddToCart}
               >
                 Pesan
               </button>
