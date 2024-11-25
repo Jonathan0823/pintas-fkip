@@ -40,7 +40,7 @@ const Page = async ({ params }: { params: Params }) => {
           )}
 
           <div className="text-white text-2xl md:text-3xl absolute p-2 top-12 md:top-16 right-5 rounded-full bg-[#a17659] shadow-md border-[#997c5c]">
-            <Link href="home/cart">
+            <Link href="/cart">
               <IoCartOutline className="transition-transform -rotate-12 hover:rotate-0" />
             </Link>
           </div>
