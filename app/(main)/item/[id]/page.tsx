@@ -1,3 +1,5 @@
+import { auth } from "@/auth";
+import EditItems from "@/components/EditItems";
 import { GetItem } from "@/lib/GetItems";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
@@ -7,7 +9,9 @@ type Params = Promise<{ id: string }>;
 const Page = async ({ params }: { params: Params }) => {
   const { id } = await params;
   const item = await GetItem(id);
-  console.log(item);
+
+  const session = await auth();
+  console.log(session);
 
   
   return (
@@ -17,7 +21,7 @@ const Page = async ({ params }: { params: Params }) => {
           <IoCartOutline className="transition-transform -rotate-12 hover:rotate-0" />
         </Link>
       </div>
-      {id}
+      {session?.user.isAdmin && item && <EditItems item={item}/>}
     </div>
   );
 };

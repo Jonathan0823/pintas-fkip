@@ -6,19 +6,23 @@ import { Plus, Minus } from "lucide-react";
 import Image from "next/image";
 import { Cropper, ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import { CreateItems } from "@/lib/CreateItems";
 import { ItemType } from "@/types/Items";
 import { useEdgeStore } from "@/lib/edgestore";
 import toast, { Toaster } from "react-hot-toast";
+import { EditItem } from "@/lib/GetItems";
 
-export default function EditItems() {
-  const [itemCount, setItemCount] = useState(0);
+export default function EditItems({ item }: { item: ItemType }) {
+  const [itemCount, setItemCount] = useState(item.stock);
   const [imageFile, setImageFile] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [imagePreview, setImagePreview] = useState<string | null>(item.image);
   const [showCropper, setShowCropper] = useState(false);
   const [croppedImage, setCroppedImage] = useState<string | null>(null);
-  const [itemName, setItemName] = useState("Item Name");
+  const [itemName, setItemName] = useState(item.name);
   const [tersedia, setTersedia] = useState(true);
+
+  const itemId = item.id;
+  const image = item.image;
+  const initialStock = item.initialStock;
 
   const { edgestore } = useEdgeStore();
 
@@ -72,44 +76,39 @@ export default function EditItems() {
   const cropperRef = useRef<ReactCropperElement | null>(null);
 
   const handleSubmit = async () => {
-    if (!itemName || !imageFile) {
+    if (!itemName) {
       toast.error("Please fill all fields");
     }
     if (itemCount < 1) {
       toast.error("Item count must be greater than 0");
       return;
     }
-    if (!imageFile) {
-      toast.error("Please upload an image");
-      return;
+    toast.loading("Uploading item...");
+    let imageUrl = image;
+    if (imageFile) {
+      toast.loading("Uploading image...");
+      const res = await edgestore.publicFiles.upload({
+        file: imageFile,
+      });
+      imageUrl = res.url;
     }
 
-    toast.loading("Uploading item...");
-    const res = await edgestore.publicFiles.upload({
-      file: imageFile,
-    });
     const item: ItemType = {
-      id: "",
+      id: itemId,
       name: itemName,
-      image: res.url,
-      initialStock: itemCount,
+      image: imageUrl,
+      initialStock: itemCount >= initialStock ? itemCount : initialStock,
       stock: itemCount,
       available: tersedia,
     };
 
     try {
-      await CreateItems(item);
+      await EditItem(item);
       toast.dismiss();
-      toast.success("Item uploaded successfully");
-      setItemName("Items Name");
-      setImageFile(null);
-      setImagePreview(null);
-      setCroppedImage(null);
-      setItemCount(0);
-      setTersedia(true);
+      toast.success("Item edited successfully");
     } catch (error) {
       toast.dismiss();
-      toast.error("Failed to upload item");
+      toast.error("Failed to edit item");
       console.log(error);
     }
   };
@@ -186,7 +185,6 @@ export default function EditItems() {
                 className="md:px-20 px-10 py-1 bg-[#9d7c58] text-white rounded-full text-center"
                 value={itemName}
                 onChange={(e) => setItemName(e.target.value)}
-                onFocus={() => setItemName("")}
               />
             </div>
 
