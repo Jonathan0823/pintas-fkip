@@ -51,8 +51,8 @@ export default function Page() {
   return (
     <div className="w-full bg-[rgb(204,180,156)] font-sans">
       <div className="md:max-w-md mx-auto">
-        <div className="min-h-screen bg-[#8B6E4F] text-white">
-          <div className="flex items-center gap-2 p-4 bg-[#8B6E4F] sticky top-0">
+        <div className="min-h-screen bg-[#9d7c58] text-white">
+          <div className="flex items-center gap-2 p-4 bg-[#9d7c58] sticky top-0">
             <BackButton className="text-white text-2xl md:text-3xl mt-1" />
 
             <h1 className="text-xl font-medium">
@@ -64,7 +64,7 @@ export default function Page() {
             {items.map((item) => (
               <div
                 key={item.id}
-                className="flex items-center gap-4 p-4 bg-[#8B6E4F] border-t border-white/20"
+                className="flex items-center gap-4 p-4 bg-[#9d7c58] border-t border-white/20"
               >
                 <div
                   className="w-6 h-6 border-2 rounded flex items-center justify-center cursor-pointer"
@@ -74,7 +74,7 @@ export default function Page() {
                     <div className="w-3 h-3 bg-white rounded-full" />
                   )}
                 </div>
-                <div className="relative w-20 h-20 rounded overflow-hidden">
+                <div className="relative w-10 h-10 rounded overflow-hidden">
                   <Image
                     src={item.items?.image || "/defaultitems.png"}
                     alt={item.items?.name || "item"}
@@ -109,11 +109,11 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#8B6E4F] md:max-w-md mx-auto border-t border-white/20">
+          <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#fbf5f0] md:max-w-md mx-auto border-t border-white/20">
             <div className="flex items-center justify-between mb-4">
-              <span>Pilihan ({selectedCount})</span>
+              <span className="text-[#9d7c58]">Pilihan ({selectedCount})</span>
             </div>
-            <Button className="w-full bg-[#8B2E15] hover:bg-[#7A2812] text-white">
+            <Button className="w-full bg-[#86271c] hover:bg-[#682411] text-white">
               Next
             </Button>
           </div>
