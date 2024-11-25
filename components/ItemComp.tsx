@@ -22,10 +22,10 @@ export default function ItemComp({ item }: { item: ItemType }) {
             <Toaster />
 
             <div className="flex-1 w-full">
-              <Card className="w-full mt-24 md:mt-32 mx-auto bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">
+              <Card className="w-full mt-24 md:mt-32 mx-auto border-[#9d7c58] border-[5px] bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">
                 <div className="space-y-2 flex mt-5 md:mt-10 flex-col w-full items-center justify-center">
                   <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
-                    <div className="relative w-72 mx-auto">
+                    <div className="relative w-60 mx-auto">
                       <Image
                         src={item.image || "/defaultitems.png"}
                         alt="user-image"
