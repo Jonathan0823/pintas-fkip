@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['files.edgestore.dev'], // Add your image host here
+    remotePatterns: [{ protocol: 'https', hostname: 'files.edgestore.dev' }], // Add your image host here
   },
   experimental: {
     serverActions: {

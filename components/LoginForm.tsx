@@ -41,10 +41,12 @@ const LoginForm = () => {
     try {
       await loginWithCreds(email, password);
       toast.dismiss();
+      window.location.href = "/home";
     } catch (err) {
       if (err instanceof Error) {
         if (err.message.includes("NEXT_REDIRECT")) {
           toast.dismiss();
+          window.location.href = "/home";
         } else {
           toast.dismiss();
           toast.error("Login failed");

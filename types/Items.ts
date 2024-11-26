@@ -5,4 +5,5 @@ export type ItemType = {
     image: string;
     initialStock: number;
     stock: number;
+    available: boolean;
 };

@@ -6,7 +6,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "@/lib/auth-action";
-import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -28,12 +27,15 @@ const MenuDropdown = () => {
   };
 
   useEffect(() => {
-    if (!UserSession) return;
-    const checkAdmin = async () => {
-      const admin = getCurrentUserInfo(UserSession?.user?.email || "");
-      setIsAdmin((await admin)?.isAdmin || false);
-    };
-    checkAdmin();
+    if (!UserSession) {
+      setIsAdmin(false);
+      return;
+    }
+    console.log(UserSession);
+
+    if (UserSession.user.isAdmin) {
+      setIsAdmin(true);
+    }
   }, [UserSession]);
 
   return (
@@ -69,7 +71,7 @@ const MenuDropdown = () => {
         </DropdownMenuItem>
         {isAdmin && (
           <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-1 md:!p-2 hover:bg-gray-100 rounded-md">
-            <Link href="/admin">
+            <Link href="/admin/create">
               <FaPlus className="text-xl" />
             </Link>
           </DropdownMenuItem>
