@@ -80,7 +80,7 @@ export default function Page() {
                     <div className="w-3 h-3 bg-white rounded-full" />
                   )}
                 </div>
-                <div className="relative w-10 h-10 rounded overflow-hidden">
+                <div className="relative w-16 h-16 rounded overflow-hidden">
                   <Image
                     src={item.items?.image || "/defaultitems.png"}
                     alt={item.items?.name || "item"}
@@ -90,7 +90,6 @@ export default function Page() {
                 </div>
                 <div className="flex-1">
                   <h2 className="text-lg font-medium">{item.items?.name}</h2>
-                  <div className="h-4 w-32 bg-white/20 rounded mt-1" />
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
