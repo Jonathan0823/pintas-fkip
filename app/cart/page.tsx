@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { getCartByUserId } from "@/lib/cart-action";
+import {
+  decreaseQuantity,
+  getCartByUserId,
+  increaseQuantity,
+} from "@/lib/cart-action";
 import { CartType } from "@/types/Cart";
 import BackButton from "@/components/BackButton";
 
@@ -27,18 +31,20 @@ export default function Page() {
     FetchData();
   }, [session]);
 
-  const updateQuantity = (id: string, increment: boolean) => {
-    setItems(
-      items.map((item) => {
-        if (item.id === id) {
-          const newQuantity = increment
-            ? item.quantity + 1
-            : Math.max(1, item.quantity - 1);
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      })
-    );
+  const incrementQuantity = async (id: string) => {
+    try {
+      await increaseQuantity(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const decrementQuantity = async (id: string) => {
+    try {
+      await decreaseQuantity(id);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const toggleSelection = (id: string) => {
@@ -91,7 +97,16 @@ export default function Page() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-white"
-                    onClick={() => updateQuantity(item.id, false)}
+                    onClick={() => {
+                      setItems((prevItems) =>
+                        prevItems.map((prevItem) =>
+                          prevItem.id === item.id
+                            ? { ...prevItem, quantity: prevItem.quantity - 1 }
+                            : prevItem
+                        )
+                      );
+                      decrementQuantity(item.id);
+                    }}
                   >
                     <Minus className="h-4 w-4" />
                   </Button>
@@ -100,7 +115,16 @@ export default function Page() {
                     variant="ghost"
                     size="icon"
                     className="h-8 w-8 text-white"
-                    onClick={() => updateQuantity(item.id, true)}
+                    onClick={() => {
+                      setItems((prevItems) =>
+                        prevItems.map((prevItem) =>
+                          prevItem.id === item.id
+                            ? { ...prevItem, quantity: prevItem.quantity + 1 }
+                            : prevItem
+                        )
+                      );
+                      incrementQuantity(item.id);
+                    }}
                   >
                     <Plus className="h-4 w-4" />
                   </Button>
