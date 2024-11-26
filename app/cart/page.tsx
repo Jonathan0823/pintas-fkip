@@ -12,7 +12,6 @@ import {
 } from "@/lib/cart-action";
 import { CartType } from "@/types/Cart";
 import BackButton from "@/components/BackButton";
-import Link from "next/link";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -138,9 +137,9 @@ export default function Page() {
               <span className="text-[#9d7c58] font-bold">
                 Pilihan ({selectedCount})
               </span>
-              <Link href="/pinjam" className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white">
+              <Button className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white">
                 Next
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
