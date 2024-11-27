@@ -21,6 +21,7 @@ export default function Page() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [disabled, setDisabled] = useState(false);
 
   const FetchData = async () => {
     if (!session) return;
@@ -40,17 +41,21 @@ export default function Page() {
   const incrementQuantity = async (id: string) => {
     try {
       await increaseQuantity(id);
+      setDisabled(true);
     } catch (error) {
       console.error(error);
     }
+    setDisabled(false);
   };
 
   const decrementQuantity = async (id: string) => {
     try {
       await decreaseQuantity(id);
+      setDisabled(true);
     } catch (error) {
       console.error(error);
     }
+    setDisabled(false);
   };
 
   const toggleSelection = (id: string) => {
@@ -105,29 +110,33 @@ export default function Page() {
                 <div className="flex-1">
                   <h2 className="text-lg font-medium">{item.items?.name}</h2>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Button
+                <div className="flex items-center gap-2 bg-white rounded-full mt-5">
+                    <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-white"
+                    className="h-8 w-8 text-[#9d7c58]"
+                    disabled={disabled}
                     onClick={() => {
                       setItems((prevItems) =>
-                        prevItems.map((prevItem) =>
-                          prevItem.id === item.id
-                            ? { ...prevItem, quantity: prevItem.quantity - 1 }
-                            : prevItem
+                      prevItems
+                        .map((prevItem) =>
+                        prevItem.id === item.id
+                          ? { ...prevItem, quantity: prevItem.quantity - 1 }
+                          : prevItem
                         )
+                        .filter((prevItem) => prevItem.quantity > 0)
                       );
                       decrementQuantity(item.id);
                     }}
-                  >
+                    >
                     <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="w-8 text-center">{item.quantity}</span>
+                    </Button>
+                  <span className="w-8 text-center text-[#9d7c58]">{item.quantity}</span>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-8 w-8 text-white"
+                    className="h-8 w-8 text-[#9d7c58]"
+                    disabled={disabled}
                     onClick={() => {
                       setItems((prevItems) =>
                         prevItems.map((prevItem) =>
