@@ -14,6 +14,7 @@ import { CartType } from "@/types/Cart";
 import BackButton from "@/components/BackButton";
 import PinjamForm from "@/components/PinjamForm";
 import toast, { Toaster } from "react-hot-toast";
+import { ImSpinner8 } from "react-icons/im";
 
 export default function Page() {
   const { data: session } = useSession();
@@ -70,7 +71,12 @@ export default function Page() {
       <Toaster />
       <div className="md:max-w-md mx-auto">
         <div className="min-h-screen bg-[#9d7c58] text-white">
-          {modalOpen && <PinjamForm onClose={() => setModalOpen(false)} selected={selectedItems} />}
+          {modalOpen && (
+            <PinjamForm
+              onClose={() => setModalOpen(false)}
+              selected={selectedItems}
+            />
+          )}
           <div className="flex items-center gap-2 p-4 bg-[#9d7c58] sticky top-0">
             <BackButton className="text-white text-2xl md:text-3xl mt-1" />
 
@@ -81,7 +87,9 @@ export default function Page() {
 
           {loading ? (
             <div className="flex items-center justify-center h-96">
-              <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-white"></div>
+              <div className="w-16 h-16 rounded-full flex items-center justify-center animate-spin">
+                <ImSpinner8 className="w-10 h-10" />
+              </div>
             </div>
           ) : (
             <>

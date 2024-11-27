@@ -10,6 +10,7 @@ import { ItemType } from "@/types/Items";
 import { useEdgeStore } from "@/lib/edgestore";
 import toast, { Toaster } from "react-hot-toast";
 import { EditItem } from "@/lib/item-action";
+import BackButton from "./BackButton";
 
 export default function EditItems({ item }: { item: ItemType }) {
   const [itemCount, setItemCount] = useState(item.stock);
@@ -145,6 +146,7 @@ export default function EditItems({ item }: { item: ItemType }) {
       <div className="my-4 py-1 w-32 mx-auto text-white border-dashed rounded-full border-[#dcc0a9] border-2 bg-[#9d7c58]">
         <h1 className="text-xl font-semibold text-center">EDIT</h1>
       </div>
+      <BackButton className="text-[#997c5c] text-4xl md:text-5xl absolute top-4 left-5" />
 
       <div className="flex-1 w-full">
         <Card className="w-full mx-auto bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">

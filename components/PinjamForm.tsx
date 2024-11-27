@@ -119,7 +119,7 @@ export default function PinjamForm({ onClose, selected }: { onClose: () => void,
             </form>
           </div>
         </div>
-        <div className="px-6 pb-6">
+        <div className="px-6 py-6 mt-auto bg-black w-full">
           <button
             type="submit"
             className="w-full bg-[#8B2323] hover:bg-[#722323] text-white py-2 rounded-md transition duration-300"
