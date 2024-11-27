@@ -11,7 +11,7 @@ const Page = async ({searchParams}: {searchParams: Promise<{search: string}>}) =
   return (
     <>
       <Image
-        src="/unsikalogo.png"
+        src="/unsikalogo.webp"
         alt="unsika"
         width={100}
         height={100}

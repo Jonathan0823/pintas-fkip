@@ -161,7 +161,7 @@ export default function EditItems({ item }: { item: ItemType }) {
             <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
               <div className="relative w-72 mx-auto">
                 <Image
-                  src={croppedImage || imagePreview || "/defaultitems.png"}
+                  src={croppedImage || imagePreview || "/defaultitems.webp"}
                   alt="user-image"
                   width={100}
                   height={100}

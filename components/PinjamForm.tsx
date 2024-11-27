@@ -93,7 +93,7 @@ export default function PinjamForm({
 
         <div className="bg-[#8B2323] mt-10 md:mt-14 text-white text-center w-full py-4 px-6"
          style={{
-          backgroundImage: "url('/bg/bg_isidata.jpg')",
+          backgroundImage: "url('/bg/bg_isidata.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -195,7 +195,7 @@ export default function PinjamForm({
         </div>
         <div className="fixed bottom-0 left-0 right-0 p-4  md:max-w-md mx-auto"
          style={{
-          backgroundImage: "url('/bg/bg-form.png')",
+          backgroundImage: "url('/bg/bg-form.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",

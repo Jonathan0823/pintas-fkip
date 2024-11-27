@@ -54,7 +54,7 @@ export default function ItemComp({
             <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
               <div className="relative w-60 mx-auto">
                 <Image
-                  src={item.image || "/defaultitems.png"}
+                  src={item.image || "/defaultitems.webp"}
                   alt="user-image"
                   width={100}
                   height={100}

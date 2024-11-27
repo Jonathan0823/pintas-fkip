@@ -9,7 +9,7 @@ const Page = () => {
       <div className="md:max-w-md mx-auto">
         <div
           style={{
-            backgroundImage: "url(/bg/bg.png)",
+            backgroundImage: "url(/bg/bg.webp)",
             backgroundSize: "cover",
             height: "100vh",
             width: "100%",
@@ -19,7 +19,7 @@ const Page = () => {
           className="w-full flex flex-col items-center relative overflow-hidden bg-fixed md:bg-local"
         >
           <Image
-            src="/unsikalogo.png"
+            src="/unsikalogo.webp"
             alt="unsika"
             width={100}
             height={100}

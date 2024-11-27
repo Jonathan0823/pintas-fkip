@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <Image
-        src="/unsikalogo.png"
+        src="/unsikalogo.webp"
         alt="unsika"
         width={100}
         height={100}

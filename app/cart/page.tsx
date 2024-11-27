@@ -114,7 +114,7 @@ export default function Page() {
                     </div>
                     <div className="relative w-16 h-16 rounded overflow-hidden">
                       <Image
-                        src={item.items?.image || "/defaultitems.png"}
+                        src={item.items?.image || "/defaultitems.webp"}
                         alt={item.items?.name || "item"}
                         fill
                         className="object-cover"

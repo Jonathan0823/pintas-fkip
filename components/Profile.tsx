@@ -150,7 +150,7 @@ const Profile = ({ user }: { user: User }) => {
       <Toaster />
       <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto">
         <Image
-          src={croppedImage || imagePreview || user.image || "/userprofile.jpg"}
+          src={croppedImage || imagePreview || user.image || "/userprofile.webp"}
           alt="user-image"
           width={100}
           height={100}

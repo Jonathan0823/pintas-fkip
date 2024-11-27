@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div
       style={{
-        backgroundImage: "url(/bg/home_bg.png)",
+        backgroundImage: "url(/bg/home_bg.webp)",
         backgroundSize: "cover",
         height: "100vh",
         width: "100%",
@@ -18,7 +18,7 @@ export default function Home() {
       className="w-full flex flex-col items-center relative"
     >
       <Image
-          src="/unsikalogo.png"
+          src="/unsikalogo.webp"
           alt="unsika"
           width={100}
           height={100}

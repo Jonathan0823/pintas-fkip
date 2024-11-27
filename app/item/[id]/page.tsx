@@ -20,7 +20,7 @@ const Page = async ({ params }: { params: Params }) => {
       <div className="md:max-w-md mx-auto">
         <div
           style={{
-            backgroundImage: "url(/bg/bg.png)",
+            backgroundImage: "url(/bg/bg.webp)",
             backgroundSize: "cover",
             height: "100vh",
             width: "100%",
@@ -31,7 +31,7 @@ const Page = async ({ params }: { params: Params }) => {
         >
           {!session?.user.isAdmin && (
             <Image
-              src="/unsikalogo.png"
+              src="/unsikalogo.webp"
               alt="unsika"
               width={100}
               height={100}
