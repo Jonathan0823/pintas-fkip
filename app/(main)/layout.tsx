@@ -29,7 +29,7 @@ export default function MainLayout({
             }}
             className="w-full flex flex-col items-center relative overflow-hidden bg-fixed md:bg-local"
           >
-            <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5">
+            <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-12 md:top-16 left-5">
               <MenuDropdown />
             </div>
             <SessionProvider>

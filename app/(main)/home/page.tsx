@@ -17,7 +17,7 @@ const Page = async ({searchParams}: {searchParams: Promise<{search: string}>}) =
         height={100}
         className="absolute top-2 md:w-20 w-14"
       />
-      <div className="text-white text-2xl md:text-3xl absolute p-2 top-16 right-5 rounded-full bg-[#a17659] shadow-md border-[#997c5c]">
+      <div className="text-white text-2xl md:text-3xl absolute p-2 top-12 md:top-16 right-5 rounded-full bg-[#a17659] shadow-md border-[#997c5c]">
         <Link href="/cart">
           <IoCartOutline className="transition-transform -rotate-12 hover:rotate-0" />
         </Link>
