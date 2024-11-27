@@ -76,12 +76,12 @@ export default function ItemComp({ item, userId }: { item: ItemType, userId: str
           </div>
 
           <div className="flex flex-col gap-4 border-[5px] border-[#9d7c58]">
-            <div className="flex justify-center text-lg tracking-wider w-full items-center px-2 py-2 gap-4 bg-[#b89e81] text-white font-serif">
+            <div className="flex justify-center text-lg tracking-wider w-full items-center px-2 py-2 gap-4 bg-[#b89e81] text-white font-sans font-bold">
               {item.available ? <p>TERSEDIA</p> : <p>TIDAK TERSEDIA</p>}
             </div>
             <div className="justify-center flex p-1 md:p-2">
               <button
-                className="px-5 py-3 rounded-full font-serif tracking-widest text-xl right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
+                className="px-5 py-3 rounded-full font-sans tracking-widest text-xl right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
                 onClick={handleAddToCart}
               >
                 Pinjam

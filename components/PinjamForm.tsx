@@ -1,15 +1,38 @@
-import { useState } from "react";
-import { CalendarIcon } from "lucide-react";
+import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
+import { User } from "@/types/User";
+import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
 export default function PinjamForm({ onClose }: { onClose: () => void }) {
+  const {data: session} = useSession();
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [user, setUser] = useState<User>();
+  const [namaKegiatan, setNamaKegiatan] = useState<string>("");
+
+
+
+  useEffect(() => {
+    if (!session) {
+      return
+    }
+    const fetchUser = async () => {
+     const res = await getCurrentUserInfo(session?.user?.email || "");
+      setUser(res);
+    }
+
+    fetchUser();
+  }, [session]);
+  
 
   return (
     <div className="relative z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
       <div className="min-h-screen bg-[#fbf5f0] flex flex-col max-w-md w-full items-center ">
-        <div className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2 hover:cursor-pointer" onClick={onClose}>
+        <div
+          className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2 hover:cursor-pointer"
+          onClick={onClose}
+        >
           <IoMdArrowRoundBack />
         </div>
 
@@ -28,7 +51,8 @@ export default function PinjamForm({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   className="flex-1 border-b border-gray-300 focus:outline-none text-[#a17667] focus:border-[#8B2323]"
-                  defaultValue="YULIA AGNESIA"
+                  value={user?.name|| ""}
+                  onChange={(e) => setUser((prev) => prev ? {...prev, name: e.target.value} : undefined)}
                 />
               </div>
               <div className="flex">
@@ -37,7 +61,8 @@ export default function PinjamForm({ onClose }: { onClose: () => void }) {
                 <input
                   type="text"
                   className="flex-1 border-b border-gray-300 focus:outline-none text-[#a17667] focus:border-[#8B2323]"
-                  defaultValue="ASEED"
+                  value={user?.namaormawa || ""}
+                  onChange={(e) => setUser((prev) => prev ? {...prev, namaormawa: e.target.value} : undefined)}
                 />
               </div>
               <div className="flex">
@@ -46,7 +71,8 @@ export default function PinjamForm({ onClose }: { onClose: () => void }) {
                 <input
                   type="tel"
                   className="flex-1 border-b border-gray-300 text-[#a17667] focus:outline-none focus:border-[#8B2323]"
-                  defaultValue="08572234345"
+                  value={user?.telepon || ""}
+                  onChange={(e) => setUser((prev) => prev ? {...prev, telepon: e.target.value} : undefined)}
                 />
               </div>
               <div className="flex">
@@ -54,6 +80,8 @@ export default function PinjamForm({ onClose }: { onClose: () => void }) {
                 <span className="w-8 text-center">:</span>
                 <input
                   type="text"
+                  value={namaKegiatan}
+                  onChange={(e) => setNamaKegiatan(e.target.value)}
                   className="flex-1 border-b border-gray-300 text-[#a17667] focus:outline-none focus:border-[#8B2323]"
                 />
               </div>
@@ -61,12 +89,26 @@ export default function PinjamForm({ onClose }: { onClose: () => void }) {
                 <label className="block text-[#8B2323] mb-2">
                   Berapa lama peminjaman :
                 </label>
-                <div className="flex text-[#8B2323]">
-                    <div>Dari</div>
-                    <div>Sampai</div>
+                <div className="flex text-[#8B2323] gap-6">
+                  <div>
+                    <p>Dari :</p>
+                    <input
+                      type="date"
+                      className="border-b border-gray-300 text-[#a17667] focus:outline-none focus:border-[#8B2323]"
+                      onChange={(e) => setStartDate(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <p>Sampai :</p>
+                    <input
+                      type="date"
+                      className="border-b border-gray-300 text-[#a17667] focus:outline-none focus:border-[#8B2323]"
+                      onChange={(e) => setEndDate(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
-              <div >
+              <div>
                 <p className="text-[#8B2323] text-[10px] mt-28">
                   Silahkan upload file surat peminjaman dibawah ini:
                 </p>

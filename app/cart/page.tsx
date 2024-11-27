@@ -13,21 +13,25 @@ import {
 import { CartType } from "@/types/Cart";
 import BackButton from "@/components/BackButton";
 import PinjamForm from "@/components/PinjamForm";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Page() {
   const { data: session } = useSession();
   const [items, setItems] = useState<CartType[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const FetchData = async () => {
     if (!session) return;
     try {
+      setLoading(true);
       const data = await getCartByUserId(session.user.id);
       setItems(data);
     } catch (error) {
       console.error(error);
     }
+    setLoading(false);
   };
   useEffect(() => {
     FetchData();
@@ -58,6 +62,7 @@ export default function Page() {
 
   return (
     <div className="w-full bg-[rgb(204,180,156)] font-sans">
+      <Toaster />
       <div className="md:max-w-md mx-auto">
         <div className="min-h-screen bg-[#9d7c58] text-white">
           {modalOpen && <PinjamForm onClose={() => setModalOpen(false)} />}
@@ -68,6 +73,12 @@ export default function Page() {
               PINTAS Saya ({items.length})
             </h1>
           </div>
+
+          {loading && (
+            <div className="flex items-center justify-center h-96">
+              <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-white"></div>
+            </div>
+          )}
 
           <div className="flex flex-col gap-2">
             {items.map((item) => (
@@ -142,7 +153,13 @@ export default function Page() {
               </span>
               <Button
                 className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white"
-                onClick={() => setModalOpen(true)}
+                onClick={() => {
+                  if (selectedCount > 0) {
+                    setModalOpen(true);
+                  } else {
+                    toast.error("Pilih barang terlebih dahulu");
+                  }
+                }}
               >
                 Next
               </Button>
