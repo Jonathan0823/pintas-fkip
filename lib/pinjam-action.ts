@@ -5,7 +5,11 @@ import { removeFromCartByUserId } from "./cart-action";
 export const checkoutCartAndCreatePinjam = async (
   userId: string,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  nama: string,
+  namaOrmawa: string,
+  nomorTelp: string,
+  namaKegiatan: string
 ) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -27,9 +31,12 @@ export const checkoutCartAndCreatePinjam = async (
     const pinjam = await prisma.pinjam.create({
       data: {
         userId,
-        namaOrmawa: user.namaormawa ?? "defaultOrmawa",
+        namaOrmawa,
         startDate,
         endDate,
+        nama,
+        namaKegiatan,
+        telepon: nomorTelp,
       },
     });
 
