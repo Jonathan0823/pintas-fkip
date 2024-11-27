@@ -3,12 +3,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-const SearchButton = () => {
+const SearchButton = ({name}: {name: string}) => {
   const [keyword, setKeyword] = useState("");
   const router = useRouter();
 
   const handleSearch = () => {
-    router.push(`/home?search=${encodeURIComponent(keyword)}`);
+    router.push(`/${name}?search=${encodeURIComponent(keyword)}`);
   };
 
   return (
@@ -16,7 +16,16 @@ const SearchButton = () => {
         <input
           type="text"
           value={keyword}
-          onChange={(e) => setKeyword(e.target.value)}
+          onChange={(e) => {setKeyword(e.target.value)
+            if (e.target.value === "") {
+              router.push(`/${name}`);
+            }
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch();
+            }
+          }}
           placeholder="Search..."
           className="outline-none w-full mx-auto rounded-2xl"
         />

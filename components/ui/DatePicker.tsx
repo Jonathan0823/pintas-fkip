@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePickerDemo( ) {
+export function DatePickerDemo( {}) {
   const [date, setDate] = React.useState<Date>()
   
 

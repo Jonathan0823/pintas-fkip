@@ -8,7 +8,7 @@ const ItemsContainer = async ({ query }: { query: string }) => {
 
   return (
     <div className="w-full">
-        <SearchButton />
+        <SearchButton name="home" />
       <div className="grid grid-cols-4 gap-2 mt-4 overflow-y-scroll w-full">
         {items.length === 0 ? (
           <div className="col-span-4 flex justify-center items-center text-center text-white">
