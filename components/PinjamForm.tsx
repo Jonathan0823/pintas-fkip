@@ -155,9 +155,9 @@ export default function PinjamForm({
             </form>
           </div>
         </div>
-        <div className="px-6 pt-8 mt-auto bg-black w-full"
+        <div className="fixed bottom-0 left-0 right-0 p-4  md:max-w-md mx-auto"
          style={{
-          backgroundImage: "url('/bg/bg-form.png')",
+          backgroundImage: "url('/bg/bg-form')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
