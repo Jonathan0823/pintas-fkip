@@ -9,23 +9,37 @@ import toast, { Toaster } from "react-hot-toast";
 import BackButton from "./BackButton";
 import { addToCart } from "@/lib/cart-action";
 
-export default function ItemComp({ item, userId }: { item: ItemType, userId: string }) {
+export default function ItemComp({
+  item,
+  userId,
+}: {
+  item: ItemType;
+  userId: string;
+}) {
   const [itemCount, setItemCount] = useState(0);
 
   const handleAddToCart = async () => {
-    if (itemCount === 0) {
-      return toast.error("Quantity cannot be 0");
+    if (itemCount > item.stock) {
+      return toast.error("Quantity tidak boleh melebihi stock");
     }
-    toast.loading("Adding to Cart");
+    if (itemCount === 0) {
+      return toast.error("Quantity tidak boleh kosong");
+    }
+    toast.loading("Menambahkan ke keranjang");
     console.log(itemCount, userId);
-    try{
-      await addToCart({ userId, productId: item.id, quantity: itemCount, id: "" });
+    try {
+      await addToCart({
+        userId,
+        productId: item.id,
+        quantity: itemCount,
+        id: "",
+      });
       toast.dismiss();
-      toast.success("Added to Cart");
+      toast.success("Berhasil ditambahkan ke keranjang");
     } catch (error) {
       console.log(error);
       toast.dismiss();
-      toast.error("Failed to add to Cart");
+      toast.error("Gagal menambahkan ke keranjang");
     }
   };
 
