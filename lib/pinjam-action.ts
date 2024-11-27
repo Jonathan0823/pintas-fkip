@@ -61,3 +61,45 @@ export const checkoutCartAndCreatePinjam = async (
     throw new Error("Failed to checkout cart");
   }
 };
+
+export const searchPinjam = async (query: string) => {
+  return await prisma.pinjam.findMany({
+    where: {
+      OR: [
+        {
+          nama: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          namaOrmawa: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        {
+          namaKegiatan: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+      ],
+    },
+  });
+};
+
+export const getPinjamById = async (id: string) => {
+  return await prisma.pinjam.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      items: {
+        include: {
+          items: true,
+        },
+      },
+    },
+  });
+};
