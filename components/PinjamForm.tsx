@@ -11,9 +11,11 @@ import { checkoutCartAndCreatePinjam } from "@/lib/pinjam-action";
 export default function PinjamForm({
   onClose,
   selected,
+  onComplete
 }: {
   onClose: () => void;
   selected: string[];
+  onComplete: () => void;
 }) {
   const { data: session } = useSession();
   const [startDate, setStartDate] = useState<string>("");
@@ -69,6 +71,7 @@ export default function PinjamForm({
       )
       toast.dismiss();
       toast.success("Berhasil mengajukan peminjaman");
+      onComplete();
     } catch (error) {
       console.error(error);
       toast.dismiss();

@@ -75,6 +75,7 @@ export default function Page() {
             <PinjamForm
               onClose={() => setModalOpen(false)}
               selected={selectedItems}
+              onComplete={FetchData}
             />
           )}
           <div className="flex items-center gap-2 p-4 bg-[#9d7c58] sticky top-0">

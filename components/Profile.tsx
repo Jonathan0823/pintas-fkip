@@ -18,6 +18,7 @@ import { User } from "@/types/User";
 import { useEdgeStore } from "../lib/edgestore";
 import Cropper, { ReactCropperElement } from "react-cropper"; // Import Cropper and its type
 import "cropperjs/dist/cropper.css"; // Import Cropper styles
+import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 
 const formSchema = z.object({
   username: z.string().min(2).max(50),
@@ -28,7 +29,6 @@ const formSchema = z.object({
 });
 
 const Profile = ({ user }: { user: User }) => {
-  console.log(user);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File>();
   const { edgestore } = useEdgeStore();
@@ -102,17 +102,19 @@ const Profile = ({ user }: { user: User }) => {
     const { username, status, telephone, email, password } = values;
 
     try {
+      const getuser = await getCurrentUserInfo(user.email || "");
       let imageUrl;
       if (imageFile) {
-        const res = await edgestore.publicFiles.upload({
-          file: imageFile,
-        });
-        imageUrl = res.url;
         if (user.image){
-          await edgestore.publicFiles.delete({
-            url: user.image,
+          const res = await edgestore.publicFiles.upload({
+            file: imageFile,
           });
+          
+          imageUrl = res.url;
         }
+        await edgestore.publicFiles.delete({
+          url: getuser.image || "",
+        });
 
       }
       const response = await fetch("/api/user/update", {
