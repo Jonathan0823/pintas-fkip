@@ -16,8 +16,8 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import { User } from "@/types/User";
 import { useEdgeStore } from "../lib/edgestore";
-import Cropper, { ReactCropperElement } from "react-cropper"; // Import Cropper and its type
-import "cropperjs/dist/cropper.css"; // Import Cropper styles
+import Cropper, { ReactCropperElement } from "react-cropper";
+import "cropperjs/dist/cropper.css";
 import { getCurrentUserInfo } from "@/lib/GetCurrentUserInfo";
 
 const formSchema = z.object({
