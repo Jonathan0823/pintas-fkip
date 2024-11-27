@@ -3,8 +3,8 @@ import { User } from "@/types/User";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { Label } from "./ui/label";
 import { Input } from "./ui/input";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function PinjamForm({
   onClose,
@@ -31,8 +31,20 @@ export default function PinjamForm({
     fetchUser();
   }, [session]);
 
+  const handleSubmit = async () => {
+    if (!user || !startDate || !endDate || !namaKegiatan) {
+      return toast.error("Data tidak boleh kosong");
+    }
+
+    if (startDate > endDate) {
+      return toast.error("Tanggal mulai tidak boleh lebih besar dari tanggal selesai");
+    }
+    console.log(user, startDate, endDate, namaKegiatan, selected);
+  }
+
   return (
     <div className="relative z-50 inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+      <Toaster />
       <div className="min-h-screen bg-[#fbf5f0] flex flex-col max-w-md w-full items-center ">
         <div
           className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2 hover:cursor-pointer"
@@ -141,7 +153,9 @@ export default function PinjamForm({
             <Input type="file" className="rounded-full" />
           </div>
           <div className="flex justify-end">
-            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 py-2 mt-4">
+            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 py-2 mt-4"
+            onClick={handleSubmit}
+            >
               Next
             </button>
           </div>
