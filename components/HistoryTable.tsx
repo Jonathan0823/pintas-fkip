@@ -57,16 +57,16 @@ export default function HistoryTable() {
       <table className="w-full border-separate border-spacing-2">
         <thead>
           <tr>
-            <th className="p-4 text-white bg-[#8B4513] rounded-xl">
+            <th className="p-4 text-white bg-[#9d7c58] rounded-xl">
               Nama Ormawa
             </th>
-            <th className="p-4 text-white bg-[#CD853F] rounded-xl">
+            <th className="p-4 text-white bg-[#9d7c58] rounded-xl">
               Nama Kegiatan
             </th>
-            <th className="p-4 text-white bg-[#CD853F] rounded-xl">
+            <th className="p-4 text-white bg-[#9d7c58] rounded-xl">
               Tanggal Mulai & Selesai
             </th>
-            <th className="p-4 text-white bg-[#CD853F] rounded-xl">
+            <th className="p-4 text-white bg-[#9d7c58] rounded-xl">
               Keterangan
             </th>
           </tr>
@@ -75,35 +75,27 @@ export default function HistoryTable() {
           {tableData.map((row, index) => (
             <tr key={index}>
               <td
-                className={`p-4 rounded-xl font-bold text-[#8B4513] ${
-                  index % 2 === 0 ? "bg-[#F4E1D2]" : "bg-[#DEB887]"
-                }`}
+                className={`p-4 rounded-xl font-bold text-[#8B4513] bg-[#dcc0a9]`}
               >
                 {row.namaOrmawa}
               </td>
               <td
-                className={`p-4 rounded-xl text-[#8B4513] ${
-                  index % 2 === 0 ? "bg-[#F4E1D2]" : "bg-[#DEB887]"
-                }`}
+                className={`p-4 rounded-xl text-[#8B4513] bg-[#dcc0a9]`}
               >
                 {row.namaKegiatan}
               </td>
               <td
-                className={`p-4 rounded-xl text-[#8B4513] whitespace-pre-line ${
-                  index % 2 === 0 ? "bg-[#F4E1D2]" : "bg-[#DEB887]"
-                }`}
+                className={`p-4 rounded-xl text-[#8B4513] whitespace-pre-line bg-[#dcc0a9]`}
               >
                 {row.tanggal}
               </td>
               <td
-                className={`p-4 rounded-xl ${
-                  index % 2 === 0 ? "bg-[#F4E1D2]" : "bg-[#DEB887]"
-                }`}
+                className={`p-4 rounded-xl bg-[#dcc0a9]`}
               >
                 <span
                   className={`inline-block w-full text-center py-1 rounded-lg ${
-                    row.keterangan === "BOOKING" ? "bg-green-500" : "bg-red-500"
-                  } text-white`}
+                    row.keterangan === "BOOKING" ? "text-green-500" : "text-red-500"
+                  }`}
                 >
                   {row.keterangan}
                 </span>
