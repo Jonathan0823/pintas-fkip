@@ -157,17 +157,17 @@ export default function PinjamForm({
         </div>
         <div className="fixed bottom-0 left-0 right-0 p-4  md:max-w-md mx-auto"
          style={{
-          backgroundImage: "url('/bg/bg-form')",
+          backgroundImage: "url('/bg/bg-form.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
         }}
         >
-          <div className="grid w-full max-w-sm items-center gap-1.5">
+          <div className="grid w-full max-w-sm items-center gap-1.5 pt-2 md:pt-6">
             <Input type="file" className="rounded-full border-[#9f9f9d] border-2 text-black bg-[#f9f6f1] pt-1" />
           </div>
           <div className="flex justify-end">
-            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 mb-1 py-2 mt-4"
+            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 mb-1 py-2 mt-2 md:mt-4"
             onClick={handleSubmit}
             >
               Next
