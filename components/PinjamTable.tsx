@@ -47,17 +47,6 @@ export default function PinjamTable() {
           </button>
         </div>
 
-        {/* Status Flow */}
-        <div className="flex justify-between mb-6">
-          {["Pengajuan mahasiswa", "Sudah disetujui TU", "Sudah disetujui Dekan", "Selesai"].map((status, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="bg-white rounded-lg p-2 text-center w-24 shadow-md">
-                <span className="text-xs">{status}</span>
-              </div>
-            </div>
-          ))}
-        </div>
-
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full border-separate border-spacing-y-2">

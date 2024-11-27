@@ -5,7 +5,9 @@ import Link from "next/link";
 import React from "react";
 import { IoCartOutline } from "react-icons/io5";
 
-const Page = () => {
+const Page = async ({searchParams}: {searchParams: Promise<{search: string}>}) => {
+  const query = await searchParams;
+
   return (
     <>
       <Image
@@ -31,7 +33,7 @@ const Page = () => {
       </div>
       
       <main>
-        <MainMenu />
+        <MainMenu query={query.search || ""} />
       </main>
       <Footer color="" />
     </>

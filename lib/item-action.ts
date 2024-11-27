@@ -16,22 +16,22 @@ export const CreateItems = async (items: ItemType) => {
   return res
 }
 
-export const GetItems = async () => {
+export const GetItems = async (query?: string) => {
+  if (query) {
+    const res = await prisma.items.findMany({
+      where: {
+        name: {
+          contains: query,
+          mode: "insensitive",
+        },
+      },
+    });
+    return res;
+  }
   const res = await prisma.items.findMany();
   return res;
 };
 
-export const SearchItems = async (key: string) => {
-  const res = await prisma.items.findMany({
-    where: {
-      name: {
-        contains: key,
-        mode: "insensitive",
-      },
-    },
-  });
-  return res;
-};
 
 export const GetItem = async (id: string) => {
   const res = await prisma.items.findUnique({
