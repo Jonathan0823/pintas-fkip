@@ -97,7 +97,7 @@ const Profile = ({ user }: { user: User }) => {
   const cropperRef = useRef<ReactCropperElement | null>(null);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    toast.loading("Updating user...");
+    toast.loading("Mengupdate user...");
     const { username, status, telephone, email, password } = values;
 
     try {
@@ -127,12 +127,12 @@ const Profile = ({ user }: { user: User }) => {
       toast.dismiss();
       if (!response.ok) {
         toast.dismiss();
-        toast.error("User update failed");
+        toast.error("Gagal mengupdate user");
       }
-      toast.success("User updated");
+      toast.success("Berhasil mengupdate user");
     } catch {
       toast.dismiss();
-      toast.error("User update failed");
+      toast.error("Gagal mengupdate user");
     }
   }
 

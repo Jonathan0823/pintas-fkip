@@ -78,16 +78,15 @@ export default function EditItems({ item }: { item: ItemType }) {
 
   const handleSubmit = async () => {
     if (!itemName) {
-      toast.error("Please fill all fields");
+      toast.error("Tolong isi nama item");
     }
     if (itemCount < 1) {
-      toast.error("Item count must be greater than 0");
+      toast.error("Stock tidak boleh kosong");
       return;
     }
-    toast.loading("Uploading item...");
+    toast.loading("Mengedit item...");
     let imageUrl = image;
     if (imageFile) {
-      toast.loading("Uploading image...");
       const res = await edgestore.publicFiles.upload({
         file: imageFile,
       });
@@ -106,10 +105,10 @@ export default function EditItems({ item }: { item: ItemType }) {
     try {
       await EditItem(item);
       toast.dismiss();
-      toast.success("Item edited successfully");
+      toast.success("Item berhasil diedit");
     } catch (error) {
       toast.dismiss();
-      toast.error("Failed to edit item");
+      toast.error("Gagal mengedit item");
       console.log(error);
     }
   };
