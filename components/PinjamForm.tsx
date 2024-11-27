@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 
-export default function PinjamForm({ onClose }: { onClose: () => void }) {
+export default function PinjamForm({ onClose, selected }: { onClose: () => void, selected: string[] }) {
   const {data: session} = useSession();
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");

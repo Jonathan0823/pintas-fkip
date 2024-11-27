@@ -40,8 +40,8 @@ export default function Page() {
 
   const incrementQuantity = async (id: string) => {
     try {
-      await increaseQuantity(id);
       setDisabled(true);
+      await increaseQuantity(id);
     } catch (error) {
       console.error(error);
     }
@@ -50,8 +50,8 @@ export default function Page() {
 
   const decrementQuantity = async (id: string) => {
     try {
-      await decreaseQuantity(id);
       setDisabled(true);
+      await decreaseQuantity(id);
     } catch (error) {
       console.error(error);
     }
@@ -70,7 +70,7 @@ export default function Page() {
       <Toaster />
       <div className="md:max-w-md mx-auto">
         <div className="min-h-screen bg-[#9d7c58] text-white">
-          {modalOpen && <PinjamForm onClose={() => setModalOpen(false)} />}
+          {modalOpen && <PinjamForm onClose={() => setModalOpen(false)} selected={selectedItems} />}
           <div className="flex items-center gap-2 p-4 bg-[#9d7c58] sticky top-0">
             <BackButton className="text-white text-2xl md:text-3xl mt-1" />
 
@@ -79,82 +79,97 @@ export default function Page() {
             </h1>
           </div>
 
-          {loading && (
+          {loading ? (
             <div className="flex items-center justify-center h-96">
               <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-white"></div>
             </div>
-          )}
-
-          <div className="flex flex-col gap-2">
-            {items.map((item) => (
-              <div
-                key={item.id}
-                className="flex items-center gap-4 p-4 bg-[#9d7c58] border-t border-white/20"
-              >
-                <div
-                  className="w-6 h-6 border-2 rounded flex items-center justify-center cursor-pointer"
-                  onClick={() => toggleSelection(item.id)}
-                >
-                  {selectedItems.includes(item.id) && (
-                    <div className="w-3 h-3 bg-white rounded-full" />
-                  )}
-                </div>
-                <div className="relative w-16 h-16 rounded overflow-hidden">
-                  <Image
-                    src={item.items?.image || "/defaultitems.png"}
-                    alt={item.items?.name || "item"}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-lg font-medium">{item.items?.name}</h2>
-                </div>
-                <div className="flex items-center gap-2 bg-white rounded-full mt-5">
-                    <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-[#9d7c58]"
-                    disabled={disabled}
-                    onClick={() => {
-                      setItems((prevItems) =>
-                      prevItems
-                        .map((prevItem) =>
-                        prevItem.id === item.id
-                          ? { ...prevItem, quantity: prevItem.quantity - 1 }
-                          : prevItem
-                        )
-                        .filter((prevItem) => prevItem.quantity > 0)
-                      );
-                      decrementQuantity(item.id);
-                    }}
-                    >
-                    <Minus className="h-4 w-4" />
-                    </Button>
-                  <span className="w-8 text-center text-[#9d7c58]">{item.quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 text-[#9d7c58]"
-                    disabled={disabled}
-                    onClick={() => {
-                      setItems((prevItems) =>
-                        prevItems.map((prevItem) =>
-                          prevItem.id === item.id
-                            ? { ...prevItem, quantity: prevItem.quantity + 1 }
-                            : prevItem
-                        )
-                      );
-                      incrementQuantity(item.id);
-                    }}
+          ) : (
+            <>
+              <div className="flex flex-col gap-2">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center gap-4 p-4 bg-[#9d7c58] border-t border-white/20"
                   >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
+                    <div
+                      className={`w-6 h-6 border-2 rounded flex items-center justify-center cursor-pointer ${
+                        selectedItems.includes(item.id)
+                          ? "bg-green-500 border-green-500 text-white"
+                          : "bg-white border-gray-300"
+                      }`}
+                      onClick={() => toggleSelection(item.id)}
+                    >
+                      {selectedItems.includes(item.id) && (
+                        <span className="text-white font-bold">✔</span>
+                      )}
+                    </div>
+                    <div className="relative w-16 h-16 rounded overflow-hidden">
+                      <Image
+                        src={item.items?.image || "/defaultitems.png"}
+                        alt={item.items?.name || "item"}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <h2 className="text-lg font-medium">
+                        {item.items?.name}
+                      </h2>
+                    </div>
+                    <div className="flex items-center gap-2 bg-white rounded-full mt-5">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-[#9d7c58]"
+                        disabled={disabled}
+                        onClick={() => {
+                          setItems((prevItems) =>
+                            prevItems
+                              .map((prevItem) =>
+                                prevItem.id === item.id
+                                  ? {
+                                      ...prevItem,
+                                      quantity: prevItem.quantity - 1,
+                                    }
+                                  : prevItem
+                              )
+                              .filter((prevItem) => prevItem.quantity > 0)
+                          );
+                          decrementQuantity(item.id);
+                        }}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <span className="w-8 text-center text-[#9d7c58]">
+                        {item.quantity}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 text-[#9d7c58]"
+                        disabled={disabled}
+                        onClick={() => {
+                          setItems((prevItems) =>
+                            prevItems.map((prevItem) =>
+                              prevItem.id === item.id
+                                ? {
+                                    ...prevItem,
+                                    quantity: prevItem.quantity + 1,
+                                  }
+                                : prevItem
+                            )
+                          );
+                          incrementQuantity(item.id);
+                        }}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-
+            </>
+          )}
           <div className="fixed bottom-0 left-0 right-0 p-4 bg-[#fbf5f0] md:max-w-md mx-auto border-t border-white/20">
             <div className="flex items-center text-xl justify-between mb-4">
               <span className="text-[#9d7c58] font-bold">
