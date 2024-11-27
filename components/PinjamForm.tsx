@@ -53,7 +53,14 @@ export default function PinjamForm({
           <IoMdArrowRoundBack />
         </div>
 
-        <div className="bg-[#8B2323] mt-10 md:mt-14 text-white text-center w-full py-4 px-6">
+        <div className="bg-[#8B2323] mt-10 md:mt-14 text-white text-center w-full py-4 px-6"
+         style={{
+          backgroundImage: "url('/bg/bg_isidata.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        >
           <h1 className="text-2xl font-semibold">ISI BIODATA</h1>
         </div>
         <p className="text-[#a17667] font-bold text-lg my-3">
@@ -148,12 +155,19 @@ export default function PinjamForm({
             </form>
           </div>
         </div>
-        <div className="px-6 pt-8 mt-auto bg-black w-full">
+        <div className="px-6 pt-8 mt-auto bg-black w-full"
+         style={{
+          backgroundImage: "url('/bg/bg-form.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        >
           <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Input type="file" className="rounded-full" />
+            <Input type="file" className="rounded-full border-[#9f9f9d] border-2 text-black bg-[#f9f6f1] pt-1" />
           </div>
           <div className="flex justify-end">
-            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 py-2 mt-4"
+            <button className="bg-[#8B2323] text-white  rounded-3xl px-4 mb-1 py-2 mt-4"
             onClick={handleSubmit}
             >
               Next
