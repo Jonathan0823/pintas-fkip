@@ -10,7 +10,8 @@ export const checkoutCartAndCreatePinjam = async (
   namaOrmawa: string,
   nomorTelp: string,
   namaKegiatan: string,
-  selectedItem: string[]
+  selectedItem: string[],
+  pdflink: string
 ) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -40,6 +41,7 @@ export const checkoutCartAndCreatePinjam = async (
         nama,
         namaKegiatan,
         telepon: nomorTelp,
+        pdflink,
       },
     });
 

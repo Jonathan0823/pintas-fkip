@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { Input } from "./ui/input";
 import toast, { Toaster } from "react-hot-toast";
+import { useEdgeStore } from '../lib/edgestore';
+import { checkoutCartAndCreatePinjam } from "@/lib/pinjam-action";
 
 export default function PinjamForm({
   onClose,
@@ -18,6 +20,9 @@ export default function PinjamForm({
   const [endDate, setEndDate] = useState<string>("");
   const [user, setUser] = useState<User>();
   const [namaKegiatan, setNamaKegiatan] = useState<string>("");
+  const [file, setFile] = useState<File>();
+  const { edgestore } = useEdgeStore();
+  
 
   useEffect(() => {
     if (!session) {
@@ -32,12 +37,42 @@ export default function PinjamForm({
   }, [session]);
 
   const handleSubmit = async () => {
-    if (!user || !startDate || !endDate || !namaKegiatan) {
+    if (!session) {
+      return toast.error("Anda harus login terlebih dahulu");
+    }
+    if (!user || !startDate || !endDate || !namaKegiatan || !selected || !file) {
       return toast.error("Data tidak boleh kosong");
     }
 
     if (startDate > endDate) {
       return toast.error("Tanggal mulai tidak boleh lebih besar dari tanggal selesai");
+    }
+    if (file.type !== "application/pdf") {
+      return toast.error("File harus berupa PDF");
+    }
+    toast.loading("Mengajukan peminjaman");
+    try{
+      const res = await edgestore.publicFiles.upload({
+        file,
+      });
+
+      await checkoutCartAndCreatePinjam(
+        session?.user?.id,
+        new Date(startDate),
+        new Date(endDate),
+        user.name || "",
+        user.namaormawa || "",
+        user.telepon || "",
+        namaKegiatan,
+        selected,
+        res.url
+      )
+      toast.dismiss();
+      toast.success("Berhasil mengajukan peminjaman");
+    } catch (error) {
+      console.error(error);
+      toast.dismiss();
+      return toast.error("Gagal mengajukan peminjaman");
     }
     console.log(user, startDate, endDate, namaKegiatan, selected);
   }
@@ -164,7 +199,10 @@ export default function PinjamForm({
         }}
         >
           <div className="grid w-full max-w-sm items-center gap-1.5 pt-2 md:pt-6">
-            <Input type="file" className="rounded-full border-[#9f9f9d] border-2 text-black bg-[#f9f6f1] pt-1" />
+            <Input type="file" className="rounded-full border-[#9f9f9d] border-2 text-black bg-[#f9f6f1] pt-1" 
+            onChange={(e) => setFile(e.target.files?.[0])}
+            accept=".pdf"
+            />
           </div>
           <div className="flex justify-end">
             <button className="bg-[#8B2323] text-white  rounded-3xl px-4 mb-1 py-2 mt-2 md:mt-4"

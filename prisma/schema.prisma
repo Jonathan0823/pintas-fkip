@@ -103,6 +103,7 @@ model Pinjam {
   namaKegiatan  String      @map("nama_kegiatan")
   nama          String       @map("nama")
   telepon       String       @map("telepon")
+  pdflink       String       @map("pdf_link")
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   items         PinjamItem[] 
   createdAt     DateTime     @default(now())

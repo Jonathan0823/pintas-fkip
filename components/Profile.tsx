@@ -28,6 +28,7 @@ const formSchema = z.object({
 });
 
 const Profile = ({ user }: { user: User }) => {
+  console.log(user);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File>();
   const { edgestore } = useEdgeStore();
@@ -107,6 +108,12 @@ const Profile = ({ user }: { user: User }) => {
           file: imageFile,
         });
         imageUrl = res.url;
+        if (user.image){
+          await edgestore.publicFiles.delete({
+            url: user.image,
+          });
+        }
+
       }
       const response = await fetch("/api/user/update", {
         method: "PATCH",
