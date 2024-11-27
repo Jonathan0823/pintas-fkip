@@ -12,11 +12,13 @@ import {
 } from "@/lib/cart-action";
 import { CartType } from "@/types/Cart";
 import BackButton from "@/components/BackButton";
+import PinjamForm from "@/components/PinjamForm";
 
 export default function Page() {
   const { data: session } = useSession();
   const [items, setItems] = useState<CartType[]>([]);
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const FetchData = async () => {
     if (!session) return;
@@ -58,6 +60,7 @@ export default function Page() {
     <div className="w-full bg-[rgb(204,180,156)] font-sans">
       <div className="md:max-w-md mx-auto">
         <div className="min-h-screen bg-[#9d7c58] text-white">
+          {modalOpen && <PinjamForm onClose={() => setModalOpen(false)} />}
           <div className="flex items-center gap-2 p-4 bg-[#9d7c58] sticky top-0">
             <BackButton className="text-white text-2xl md:text-3xl mt-1" />
 
@@ -137,7 +140,10 @@ export default function Page() {
               <span className="text-[#9d7c58] font-bold">
                 Pilihan ({selectedCount})
               </span>
-              <Button className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white">
+              <Button
+                className="w-20 rounded-full text-xl bg-[#86271c] hover:bg-[#682411] text-white"
+                onClick={() => setModalOpen(true)}
+              >
                 Next
               </Button>
             </div>
