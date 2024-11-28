@@ -62,33 +62,6 @@ export const checkoutCartAndCreatePinjam = async (
   }
 };
 
-export const searchPinjam = async (query: string) => {
-  return await prisma.pinjam.findMany({
-    where: {
-      OR: [
-        {
-          nama: {
-            contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          namaOrmawa: {
-            contains: query,
-            mode: "insensitive",
-          },
-        },
-        {
-          namaKegiatan: {
-            contains: query,
-            mode: "insensitive",
-          },
-        },
-      ],
-    },
-  });
-};
-
 export const getPinjamById = async (id: string) => {
   return await prisma.pinjam.findUnique({
     where: {
@@ -104,17 +77,51 @@ export const getPinjamById = async (id: string) => {
   });
 };
 
-export const getPinjamAll = async () => {
-  return await prisma.pinjam.findMany({
-    include: {
-      items: {
-        include: {
-          items: true,
+export const getPinjamAll = async (query?: string) => {
+  if (query) {
+    return await prisma.pinjam.findMany({
+      where: {
+        OR: [
+          {
+            nama: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            namaOrmawa: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            namaKegiatan: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+      include: {
+        items: {
+          include: {
+            items: true,
+          },
         },
       },
-    },
-  });
-}
+    });
+  } else {
+    return await prisma.pinjam.findMany({
+      include: {
+        items: {
+          include: {
+            items: true,
+          },
+        },
+      },
+    });
+  }
+};
 
 export const changePinjamStatus = async (id: string, status: string) => {
   return await prisma.pinjam.update({
@@ -125,4 +132,4 @@ export const changePinjamStatus = async (id: string, status: string) => {
       status,
     },
   });
-}
+};

@@ -1,11 +1,10 @@
-import { getPinjamAll } from "@/lib/pinjam-action";
 import StatusButton from "./StatusButton";
 import { auth } from "@/auth";
+import { getPinjamAll } from "@/lib/pinjam-action";
 
-export default async function PinjamTable() {
+export default async function PinjamTable({ query }: { query: string }) {
   const session = await auth();
-  const data = await getPinjamAll();
-  console.log(data);
+  const data = await getPinjamAll(query);
 
   return (
     <div className="min-h-screen max-w-md w-full rounded-t-3xl border-[5px] border-red-800 mt-5 bg-[#fbf5f0] p-4">
@@ -33,7 +32,11 @@ export default async function PinjamTable() {
                     </div>
                   </td>
                   <td className="p-3 w-20 rounded-xl shadow-lg">
-                    <StatusButton status={row.status} isAdmin={session?.user.isAdmin || false} id={row.id}/>
+                    <StatusButton
+                      status={row.status}
+                      isAdmin={session?.user.isAdmin || false}
+                      id={row.id}
+                    />
                   </td>
                 </tr>
               );

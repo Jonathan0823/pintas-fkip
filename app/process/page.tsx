@@ -4,7 +4,13 @@ import SearchButton from "@/components/SearchButton";
 import Image from "next/image";
 import React from "react";
 
-const Page = () => {
+const Page = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ search: string }>;
+}) => {
+  const query = await searchParams;
+
   return (
     <div className="w-full bg-[rgb(204,180,156)]">
       <div className="md:max-w-md mx-auto">
@@ -34,7 +40,7 @@ const Page = () => {
           </div>
 
           <BackButton className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2" />
-          <PinjamTable />
+          <PinjamTable query={query?.search || ""} />
         </div>
       </div>
     </div>
