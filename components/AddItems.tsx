@@ -73,18 +73,18 @@ export default function AddItems() {
 
   const handleSubmit = async () => {
     if (!itemName || !imageFile) {
-      toast.error("Please fill all fields");
+      toast.error("Toloong isi semua data");
     }
     if (itemCount < 1) {
-      toast.error("Item count must be greater than 0");
+      toast.error("Stock tidak boleh kosong");
       return;
     }
     if (!imageFile) {
-      toast.error("Please upload an image");
+      toast.error("Tolong pilih gambar");
       return;
     }
 
-    toast.loading("Uploading item...");
+    toast.loading("Mengupload item...");
     const res = await edgestore.publicFiles.upload({
       file: imageFile,
     });
@@ -100,7 +100,7 @@ export default function AddItems() {
     try {
       await CreateItems(item);
       toast.dismiss();
-      toast.success("Item uploaded successfully");
+      toast.success("Item berhasil diupload");
       setItemName("Items Name");
       setImageFile(null);
       setImagePreview(null);
@@ -109,7 +109,7 @@ export default function AddItems() {
       setTersedia(true);
     } catch (error) {
       toast.dismiss();
-      toast.error("Failed to upload item");
+      toast.error("item gagal diupload");
       console.log(error);
     }
   };
@@ -161,7 +161,7 @@ export default function AddItems() {
             <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
               <div className="relative w-72 mx-auto">
                 <Image
-                  src={croppedImage || imagePreview || "/defaultitems.png"}
+                  src={croppedImage || imagePreview || "/defaultitems.webp"}
                   alt="user-image"
                   width={100}
                   height={100}

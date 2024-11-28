@@ -8,7 +8,7 @@ const Page = () => {
       <div className="md:max-w-md mx-auto">
         <div
           style={{
-            backgroundImage: "url(/bg/bg.png)",
+            backgroundImage: "url(/bg/bg.webp)",
             backgroundSize: "cover",
             height: "100vh",
             width: "100%",

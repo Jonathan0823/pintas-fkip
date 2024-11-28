@@ -11,13 +11,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMenu } from "react-icons/io5";
 import { IoHomeOutline } from "react-icons/io5";
-import {
-  IoPersonOutline,
-  IoSettingsOutline,
-  IoSearchOutline,
-} from "react-icons/io5";
+import { IoPersonOutline } from "react-icons/io5";
 import { IoExitOutline } from "react-icons/io5";
 import { FaPlus } from "react-icons/fa6";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
+import { VscServerProcess } from "react-icons/vsc";
 
 const MenuDropdown = () => {
   const { data: UserSession } = useSession();
@@ -64,10 +62,14 @@ const MenuDropdown = () => {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-1 md:!p-2 hover:bg-gray-100 rounded-md">
-          <IoSettingsOutline size={24} />
+          <Link href="/process">
+            <VscServerProcess className="text-xl" />
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-1 md:!p-2 hover:bg-gray-100 rounded-md">
-          <IoSearchOutline size={24} />
+          <Link href="/history">
+            <HiOutlineClipboardDocumentList className="text-xl" />
+          </Link>
         </DropdownMenuItem>
         {isAdmin && (
           <DropdownMenuItem className="flex justify-center text-[#997c5c] items-center !p-1 md:!p-2 hover:bg-gray-100 rounded-md">

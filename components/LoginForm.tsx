@@ -63,7 +63,7 @@ const LoginForm = () => {
       <Toaster />
       <div
         style={{
-          backgroundImage: "url(/bg/login_bg.png)",
+          backgroundImage: "url(/bg/login_bg.webp)",
           backgroundSize: "cover",
           height: "100vh",
           width: "100%",
@@ -71,7 +71,7 @@ const LoginForm = () => {
         className="w-full flex flex-col justify-center items-center relative"
       >
         <Image
-          src="/unsikalogo.png"
+          src="/unsikalogo.webp"
           alt="unsika"
           width={100}
           height={100}

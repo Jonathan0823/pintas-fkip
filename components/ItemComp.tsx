@@ -9,23 +9,37 @@ import toast, { Toaster } from "react-hot-toast";
 import BackButton from "./BackButton";
 import { addToCart } from "@/lib/cart-action";
 
-export default function ItemComp({ item, userId }: { item: ItemType, userId: string }) {
+export default function ItemComp({
+  item,
+  userId,
+}: {
+  item: ItemType;
+  userId: string;
+}) {
   const [itemCount, setItemCount] = useState(0);
 
   const handleAddToCart = async () => {
-    if (itemCount === 0) {
-      return toast.error("Quantity cannot be 0");
+    if (itemCount > item.stock) {
+      return toast.error("Quantity tidak boleh melebihi stock");
     }
-    toast.loading("Adding to Cart");
+    if (itemCount === 0) {
+      return toast.error("Quantity tidak boleh kosong");
+    }
+    toast.loading("Menambahkan ke keranjang");
     console.log(itemCount, userId);
-    try{
-      await addToCart({ userId, productId: item.id, quantity: itemCount, id: "" });
+    try {
+      await addToCart({
+        userId,
+        productId: item.id,
+        quantity: itemCount,
+        id: "",
+      });
       toast.dismiss();
-      toast.success("Added to Cart");
+      toast.success("Berhasil ditambahkan ke keranjang");
     } catch (error) {
       console.log(error);
       toast.dismiss();
-      toast.error("Failed to add to Cart");
+      toast.error("Gagal menambahkan ke keranjang");
     }
   };
 
@@ -40,7 +54,7 @@ export default function ItemComp({ item, userId }: { item: ItemType, userId: str
             <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
               <div className="relative w-60 mx-auto">
                 <Image
-                  src={item.image || "/defaultitems.png"}
+                  src={item.image || "/defaultitems.webp"}
                   alt="user-image"
                   width={100}
                   height={100}
@@ -76,12 +90,12 @@ export default function ItemComp({ item, userId }: { item: ItemType, userId: str
           </div>
 
           <div className="flex flex-col gap-4 border-[5px] border-[#9d7c58]">
-            <div className="flex justify-center text-lg tracking-wider w-full items-center px-2 py-2 gap-4 bg-[#b89e81] text-white font-serif">
+            <div className="flex justify-center text-lg tracking-wider w-full items-center px-2 py-2 gap-4 bg-[#b89e81] text-white font-sans font-bold">
               {item.available ? <p>TERSEDIA</p> : <p>TIDAK TERSEDIA</p>}
             </div>
             <div className="justify-center flex p-1 md:p-2">
               <button
-                className="px-5 py-3 rounded-full font-serif tracking-widest text-xl right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
+                className="px-5 py-3 rounded-full font-sans tracking-widest text-xl right-0 font-bold text-white bg-[#8b1515] hover:bg-[#6b1010]"
                 onClick={handleAddToCart}
               >
                 Pinjam

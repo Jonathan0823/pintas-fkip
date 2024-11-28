@@ -36,7 +36,7 @@ const SignUpForm = ({ type }: { type: string }) => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    toast.loading("Creating user...");
+    toast.loading("Membuat user...");
     const { username, status, telephone, email, password } = values;
 
     if (!username || !status || !telephone || !email || !password) {
@@ -62,15 +62,15 @@ const SignUpForm = ({ type }: { type: string }) => {
       toast.dismiss();
       if (!response.ok) {
         toast.dismiss();
-        toast.error("User creation failed");
+        toast.error("Gagal membuat user");
       }
-      toast.success("User created");
+      toast.success("User berhasil dibuat");
 
       form.reset();
     } catch {
       form.reset();
       toast.dismiss();
-      toast.error("User creation failed");
+      toast.error("Gagal membuat user");
     }
   }
 

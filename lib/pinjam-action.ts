@@ -5,7 +5,13 @@ import { removeFromCartByUserId } from "./cart-action";
 export const checkoutCartAndCreatePinjam = async (
   userId: string,
   startDate: Date,
-  endDate: Date
+  endDate: Date,
+  nama: string,
+  namaOrmawa: string,
+  nomorTelp: string,
+  namaKegiatan: string,
+  selectedItem: string[],
+  pdflink: string
 ) => {
   const user = await prisma.user.findUnique({
     where: {
@@ -13,9 +19,11 @@ export const checkoutCartAndCreatePinjam = async (
     },
   });
   const cartItems = await prisma.cart.findMany({
-    where: { userId },
-    include: {
-      items: true,
+    where: {
+      userId,
+      id: {
+        in: selectedItem,
+      },
     },
   });
 
@@ -27,9 +35,13 @@ export const checkoutCartAndCreatePinjam = async (
     const pinjam = await prisma.pinjam.create({
       data: {
         userId,
-        namaOrmawa: user.namaormawa ?? "defaultOrmawa",
+        namaOrmawa,
         startDate,
         endDate,
+        nama,
+        namaKegiatan,
+        telepon: nomorTelp,
+        pdflink,
       },
     });
 
@@ -48,4 +60,76 @@ export const checkoutCartAndCreatePinjam = async (
     console.log(error);
     throw new Error("Failed to checkout cart");
   }
+};
+
+export const getPinjamById = async (id: string) => {
+  return await prisma.pinjam.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      items: {
+        include: {
+          items: true,
+        },
+      },
+    },
+  });
+};
+
+export const getPinjamAll = async (query?: string) => {
+  if (query) {
+    return await prisma.pinjam.findMany({
+      where: {
+        OR: [
+          {
+            nama: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            namaOrmawa: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+          {
+            namaKegiatan: {
+              contains: query,
+              mode: "insensitive",
+            },
+          },
+        ],
+      },
+      include: {
+        items: {
+          include: {
+            items: true,
+          },
+        },
+      },
+    });
+  } else {
+    return await prisma.pinjam.findMany({
+      include: {
+        items: {
+          include: {
+            items: true,
+          },
+        },
+      },
+    });
+  }
+};
+
+export const changePinjamStatus = async (id: string, status: string) => {
+  return await prisma.pinjam.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+    },
+  });
 };

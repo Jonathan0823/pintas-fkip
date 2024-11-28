@@ -20,7 +20,7 @@ export default function MainLayout({
         <div className="md:max-w-md mx-auto">
           <div
             style={{
-              backgroundImage: "url(/bg/bg.png)",
+              backgroundImage: "url(/bg/bg.webp)",
               backgroundSize: "cover",
               height: "100vh",
               width: "100%",
@@ -29,7 +29,7 @@ export default function MainLayout({
             }}
             className="w-full flex flex-col items-center relative overflow-hidden bg-fixed md:bg-local"
           >
-            <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-16 left-5">
+            <div className="text-[#997c5c] text-4xl md:text-5xl absolute top-12 md:top-16 left-5">
               <MenuDropdown />
             </div>
             <SessionProvider>
