@@ -1,4 +1,5 @@
 import BackButton from "@/components/BackButton";
+import PinjamTable from "@/components/PinjamTable";
 import SearchButton from "@/components/SearchButton";
 import Image from "next/image";
 import React from "react";
@@ -33,6 +34,7 @@ const Page = () => {
           </div>
 
           <BackButton className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2" />
+          <PinjamTable />
         </div>
       </div>
     </div>

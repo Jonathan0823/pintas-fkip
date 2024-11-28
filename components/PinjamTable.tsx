@@ -1,5 +1,3 @@
-import { Search } from 'lucide-react'
-import Image from "next/image"
 
 export default function PinjamTable() {
   const rows = [
@@ -10,42 +8,8 @@ export default function PinjamTable() {
   
   return (
     <div className="min-h-screen bg-[#E5D5C5] p-4">
-      <div className="max-w-3xl mx-auto bg-[#E5D5C5] rounded-lg p-4">
-        {/* Header */}
-        <div className="flex items-center gap-4 mb-6">
-          <button className="text-[#8B2323]">
-            <svg width="24" height="24" viewBox="0 0 24 24">
-              <path 
-                fill="currentColor" 
-                d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-              />
-            </svg>
-          </button>
-          <div className="flex flex-col items-center flex-grow">
-            <Image
-              src="/placeholder.svg?height=60&width=60"
-              alt="Logo"
-              width={60}
-              height={60}
-              className="mb-2"
-            />
-            <h1 className="text-2xl font-bold text-white text-center">
-              ALUR SURAT PEMINJAMAN
-            </h1>
-          </div>
-        </div>
-
-        {/* Search Bar */}
-        <div className="flex gap-2 mb-6">
-          <input
-            type="text"
-            className="flex-grow p-2 rounded-md border border-gray-300"
-            placeholder="Search..."
-          />
-          <button className="bg-[#8B2323] p-2 rounded-md">
-            <Search className="w-6 h-6 text-white" />
-          </button>
-        </div>
+      <div className="max-w-3xl mx-auto bg-[#E5D5C5] rounded-lg p-4"></div>
+    
 
         {/* Table */}
         <div className="overflow-x-auto">
@@ -79,7 +43,6 @@ export default function PinjamTable() {
           </table>
         </div>
       </div>
-    </div>
   )
 }
 

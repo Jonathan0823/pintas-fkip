@@ -105,17 +105,15 @@ const Profile = ({ user }: { user: User }) => {
       const getuser = await getCurrentUserInfo(user.email || "");
       let imageUrl;
       if (imageFile) {
-        if (user.image){
-          const res = await edgestore.publicFiles.upload({
-            file: imageFile,
+        if (user.image) {
+          await edgestore.publicFiles.delete({
+            url: getuser.image || "",
           });
-          
-          imageUrl = res.url;
         }
-        await edgestore.publicFiles.delete({
-          url: getuser.image || "",
+        const res = await edgestore.publicFiles.upload({
+          file: imageFile,
         });
-
+        imageUrl = res.url;
       }
       const response = await fetch("/api/user/update", {
         method: "PATCH",
@@ -150,7 +148,9 @@ const Profile = ({ user }: { user: User }) => {
       <Toaster />
       <div className="relative w-24 h-24 md:w-32 md:h-32 mx-auto">
         <Image
-          src={croppedImage || imagePreview || user.image || "/userprofile.webp"}
+          src={
+            croppedImage || imagePreview || user.image || "/userprofile.webp"
+          }
           alt="user-image"
           width={100}
           height={100}
