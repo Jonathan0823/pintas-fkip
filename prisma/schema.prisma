@@ -106,6 +106,7 @@ model Pinjam {
   pdflink       String       @map("pdf_link")
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   items         PinjamItem[] 
+  status        String       @default("pending")
   createdAt     DateTime     @default(now())
   startDate     DateTime     @map("start_date")
   endDate       DateTime     @map("end_date")

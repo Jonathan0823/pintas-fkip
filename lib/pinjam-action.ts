@@ -115,3 +115,14 @@ export const getPinjamAll = async () => {
     },
   });
 }
+
+export const changePinjamStatus = async (id: string, status: string) => {
+  return await prisma.pinjam.update({
+    where: {
+      id,
+    },
+    data: {
+      status,
+    },
+  });
+}
