@@ -1,8 +1,9 @@
-import BackButton from "@/components/BackButton";
 import PinjamTable from "@/components/PinjamTable";
 import SearchButton from "@/components/SearchButton";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const Page = async ({
   searchParams,
@@ -39,7 +40,9 @@ const Page = async ({
             <SearchButton name="process" />
           </div>
 
-          <BackButton className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2" />
+          <Link href="/home" className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2">
+            <IoMdArrowRoundBack />
+          </Link>
           <PinjamTable query={query?.search || ""} />
         </div>
       </div>

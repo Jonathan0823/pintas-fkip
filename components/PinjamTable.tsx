@@ -1,8 +1,9 @@
+import React, { Suspense } from "react";
 import StatusButton from "./StatusButton";
 import { auth } from "@/auth";
 import { getPinjamAll } from "@/lib/pinjam-action";
 
-export default async function PinjamTable({ query }: { query: string }) {
+const PinjamTableContent = async ({ query }: { query: string }) => {
   const session = await auth();
   const data = await getPinjamAll(query);
 
@@ -45,5 +46,13 @@ export default async function PinjamTable({ query }: { query: string }) {
         </table>
       </div>
     </div>
+  );
+};
+
+export default function PinjamTable({ query }: { query: string }) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PinjamTableContent query={query} />
+    </Suspense>
   );
 }
