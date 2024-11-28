@@ -116,7 +116,7 @@ const Profile = ({ user }: { user: User }) => {
         imageUrl = res.url;
       }
       const response = await fetch("/api/user/update", {
-        method: "PATCH",
+        method: "PATCH", 
         headers: {
           "Content-Type": "application/json",
         },

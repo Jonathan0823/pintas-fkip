@@ -103,3 +103,15 @@ export const getPinjamById = async (id: string) => {
     },
   });
 };
+
+export const getPinjamAll = async () => {
+  return await prisma.pinjam.findMany({
+    include: {
+      items: {
+        include: {
+          items: true,
+        },
+      },
+    },
+  });
+}
