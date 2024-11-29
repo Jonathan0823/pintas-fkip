@@ -2,6 +2,7 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 import { getPinjamById } from "@/lib/pinjam-action";
 import Link from "next/link";
 import { BiSolidFilePdf } from "react-icons/bi";
+import Image from "next/image";
 
 export default async function DetailPinjam({
   id,
@@ -16,7 +17,11 @@ export default async function DetailPinjam({
   return (
     <div className="absolute font-sans z-50 inset-0 bg-black/20 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
       <div className="min-h-screen  flex flex-col max-w-md w-full items-center ">
-        <div className={`md:w-96 w-80 mt-11 ${type === "process" ? "bg-[#94fff9]" : "bg-white"} rounded-2xl border-2 border-black border-dashed flex flex-col max-w-md mx-4 shadow-lg`}>
+        <div
+          className={`md:w-96 w-80 mt-11 ${
+            type === "process" ? "bg-[#94fff9]" : "bg-white"
+          } rounded-2xl border-2 border-black border-dashed flex min-h-screen overflow-y-auto flex-col max-w-md mx-4 shadow-lg`}
+        >
           <div className="p-6 relative text-xs text-[#8B2323] font-bold">
             <div className="text-[#997c5c] text-md md:text-lg absolute top-1 left-2 hover:cursor-pointer">
               <Link href="/process">
@@ -118,7 +123,28 @@ export default async function DetailPinjam({
                     </div>
                   )}
                 </div>
-                <div></div>
+                <div className="grid grid-cols-2 gap-4 mt-4 relative">
+                  {data?.items && data.items.length >= 3 && (
+                    <div className="absolute inset-y-0 left-1/2 w-0.5 bg-black"></div>
+                  )}
+                  {data?.items.map((item) => (
+                    <div key={item.id} className="flex gap-2">
+                      <div>
+                        <Image
+                          src={item.items?.image}
+                          alt={item.items?.name}
+                          width={50}
+                          height={50}
+                          className="w-11 h-11 rounded-xl"
+                        />
+                      </div>
+                      <div>
+                        <h1 className="text-[#8B2323]">{item.items?.name}</h1>
+                        <h2 className="text-[#8B2323]">{item.quantity} pcs</h2>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </form>
           </div>
