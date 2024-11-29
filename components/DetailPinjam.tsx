@@ -16,7 +16,7 @@ export default async function DetailPinjam({
   return (
     <div className="absolute font-sans z-50 inset-0 bg-black/20 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
       <div className="min-h-screen  flex flex-col max-w-md w-full items-center ">
-        <div className="md:w-96 w-80 mt-11 bg-white rounded-2xl border-2 border-black border-dashed flex flex-col max-w-md mx-4 shadow-lg">
+        <div className={`md:w-96 w-80 mt-11 ${type === "process" ? "bg-[#94fff9]" : "bg-white"} rounded-2xl border-2 border-black border-dashed flex flex-col max-w-md mx-4 shadow-lg`}>
           <div className="p-6 relative text-xs text-[#8B2323] font-bold">
             <div className="text-[#997c5c] text-md md:text-lg absolute top-1 left-2 hover:cursor-pointer">
               <Link href="/process">
