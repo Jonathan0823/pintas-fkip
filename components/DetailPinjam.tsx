@@ -23,7 +23,7 @@ export default async function DetailPinjam({
           } rounded-2xl border-2 border-black border-dashed flex min-h-screen overflow-y-auto flex-col max-w-md mx-4 shadow-lg`}
         >
           <div className="p-6 relative text-xs text-[#8B2323] font-bold">
-            <div className="text-[#997c5c] text-md md:text-lg absolute top-1 left-2 hover:cursor-pointer">
+            <div className="text-[#997c5c] text-xl md:text-2xl absolute top-1 left-2 hover:cursor-pointer">
               <Link href={type === "process" ? "/process" : "/history"}>
                 <IoMdArrowRoundBack />
               </Link>
