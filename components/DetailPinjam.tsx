@@ -1,6 +1,7 @@
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { getPinjamById } from "@/lib/pinjam-action";
 import Link from "next/link";
+import { BiSolidFilePdf } from "react-icons/bi";
 
 export default async function DetailPinjam({
   id,
@@ -101,14 +102,23 @@ export default async function DetailPinjam({
                       disabled
                     />
                   </div>
-
                 </div>
-                  <div className="border-t-2 border-b-2 border-black mt-2">
-                        test
-                  </div>
-                  <div>
-                    
-                  </div>
+                <div className="border-t-2 border-b-2 pb-4 border-black mt-2">
+                  {data?.pdflink && (
+                    <div className="mt-4">
+                      <a
+                        href={data?.pdflink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#8B2323] bg-[#fbf5f0] px-2 rounded-full py-2 border-2 border-slate-500"
+                      >
+                        <BiSolidFilePdf className="inline text-xl mr-2" />
+                        Surat Peminjaman Fasilitas
+                      </a>
+                    </div>
+                  )}
+                </div>
+                <div></div>
               </div>
             </form>
           </div>
