@@ -11,6 +11,7 @@ import { useEdgeStore } from "@/lib/edgestore";
 import toast, { Toaster } from "react-hot-toast";
 import { EditItem } from "@/lib/item-action";
 import BackButton from "./BackButton";
+import { ConfirmationDelete } from "./ConfirmationDelete";
 
 export default function EditItems({ item }: { item: ItemType }) {
   const [itemCount, setItemCount] = useState(item.stock);
@@ -75,6 +76,11 @@ export default function EditItems({ item }: { item: ItemType }) {
   };
 
   const cropperRef = useRef<ReactCropperElement | null>(null);
+
+  const onDeleted = () => {
+    toast.success("Item berhasil dihapus");
+  }
+
 
   const handleSubmit = async () => {
     if (!itemName) {
@@ -149,14 +155,14 @@ export default function EditItems({ item }: { item: ItemType }) {
 
       <div className="flex-1 w-full">
         <Card className="w-full mx-auto bg-white/90 min-h-screen p-2 md:space-y-6 space-y-2">
-          <div className="space-y-2 flex flex-col w-full items-center justify-center">
+          <div className="space-y-2 flex relative flex-col w-full items-center justify-center">
+            <div>
+              <ConfirmationDelete itemId={itemId} onSuccess={onDeleted}/>
+            </div>
             <div className="flex justify-center">
-              <button
-                className="mx-auto py-1 bg-[#9d7c58] text-white rounded-full px-10"
-                onClick={() => document.getElementById("photo-upload")?.click()}
-              >
+              <div className="mx-auto py-1 bg-[#9d7c58] text-white rounded-full px-10">
                 ADD PHOTO
-              </button>
+              </div>
             </div>
             <div className="bg-[#9d7c58] rounded-xl p-1 aspect-square flex items-center justify-center">
               <div className="relative w-72 mx-auto">
