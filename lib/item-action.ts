@@ -61,3 +61,17 @@ export const DeleteItem = async (id: string) => {
   });
   return res;
 }
+
+export const DecreaseStock = async (id: string, quantity: number) => {
+  const res = await prisma.items.update({
+    where: {
+      id: id,
+    },
+    data: {
+      stock: {
+        decrement: quantity,
+      },
+    },
+  });
+  return res;
+}

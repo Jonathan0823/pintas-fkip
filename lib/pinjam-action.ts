@@ -1,6 +1,7 @@
 "use server";
 import { prisma } from "@/lib/prisma";
 import { removeFromCartByUserId } from "./cart-action";
+import { DecreaseStock } from "./item-action";
 
 export const checkoutCartAndCreatePinjam = async (
   userId: string,
@@ -51,6 +52,10 @@ export const checkoutCartAndCreatePinjam = async (
         itemId: cart.productId,
         quantity: cart.quantity,
       })),
+    });
+
+    cartItems.forEach(async (cart) => {
+      await DecreaseStock(cart.productId, cart.quantity);
     });
 
     await removeFromCartByUserId(userId);

@@ -8,9 +8,11 @@ import { IoMdArrowRoundBack } from "react-icons/io";
 const Page = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ search: string }>;
+  searchParams: Promise<{ search: string, show: boolean, id: string }>;
 }) => {
   const query = await searchParams;
+  const show = query?.show || false;
+  const id = query?.id || "";
 
   return (
     <div className="w-full bg-[rgb(204,180,156)]">
@@ -43,7 +45,7 @@ const Page = async ({
           <Link href="/home" className="text-[#997c5c] text-3xl md:text-4xl absolute top-1 left-2">
             <IoMdArrowRoundBack />
           </Link>
-          <PinjamTable query={query?.search || ""} />
+          <PinjamTable query={query?.search || ""} show={show} id={id}/>
         </div>
       </div>
     </div>
