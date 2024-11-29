@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Minus, Plus } from "lucide-react";
 import Image from "next/image";
@@ -24,7 +24,7 @@ export default function Page() {
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
-  const FetchData = async () => {
+  const FetchData = useCallback(async () => {
     if (!session) return;
     try {
       setLoading(true);
@@ -34,10 +34,11 @@ export default function Page() {
       console.error(error);
     }
     setLoading(false);
-  };
+  }, [session]);
+
   useEffect(() => {
     FetchData();
-  }, [session]);
+  }, [FetchData]);
 
   const incrementQuantity = async (id: string) => {
     try {
