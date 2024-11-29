@@ -6,9 +6,11 @@ import React from "react";
 const Page = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ search: string }>;
+  searchParams: Promise<{ search: string, show: boolean, id: string }>;
 }) => {
   const query = await searchParams;
+  const show = query?.show || false;
+  const id = query?.id || "";
   return (
     <>
       <Image
@@ -24,7 +26,7 @@ const Page = async ({
         </h1>
         <SearchButton name="history" />
 
-        <HistoryTable query={query.search} />
+        <HistoryTable query={query.search} show={show} id={id}/>
       </div>
     </>
   );

@@ -1,7 +1,17 @@
 import { getPinjamAll } from "@/lib/pinjam-action";
 import React from "react";
+import DetailPinjam from "./DetailPinjam";
+import Link from "next/link";
 
-export default async function HistoryTable({ query }: { query: string }) {
+export default async function HistoryTable({
+  query,
+  show,
+  id,
+}: {
+  query: string;
+  show: boolean;
+  id: string;
+}) {
   const data = await getPinjamAll(query || "");
 
   const keterangan = (enddate: Date) => {
@@ -21,11 +31,13 @@ export default async function HistoryTable({ query }: { query: string }) {
             namaKegiatan: "",
             startDate: "",
             endDate: "",
+            id: "",
           })),
         ];
 
   return (
     <div className="md:max-w-md p-2 bg-white rounded-t-3xl border-[5px] border-red-800 mt-5 min-h-screen rounded-2xl shadow font-sans">
+      {show && <DetailPinjam id={id} type="history" />}
       <div className="max-h-[500px] overflow-y-auto font-sans">
         <table className="md:max-w-md w-full border-separate border-spacing-2">
           <thead>
@@ -50,12 +62,16 @@ export default async function HistoryTable({ query }: { query: string }) {
                 <td
                   className={`p-2 rounded-xl font-bold text-center text-[#8B4513] bg-[#dcc0a9]`}
                 >
-                  {row.namaOrmawa}
+                  <Link href={`/history?show=true&id=${row.id}`}>
+                    {row.namaOrmawa}
+                  </Link>
                 </td>
                 <td
                   className={`p-2 rounded-xl font-bold text-center text-[#8B4513] bg-[#dcc0a9]`}
                 >
-                  {row.namaKegiatan}
+                  <Link href={`/history?show=true&id=${row.id}`}>
+                    {row.namaKegiatan}
+                  </Link>
                 </td>
                 <td
                   className={`p-2 rounded-xl font-bold text-center text-[#8B4513] whitespace-pre-line bg-[#dcc0a9]`}
