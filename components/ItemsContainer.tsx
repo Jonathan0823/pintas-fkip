@@ -9,7 +9,7 @@ const ItemsContainer = async ({ query }: { query: string }) => {
   return (
     <div className="w-full">
         <SearchButton name="home" />
-      <div className="grid grid-cols-4 gap-2 mt-4 overflow-y-scroll w-full">
+      <div className="grid grid-cols-4 gap-2 mt-4 overflow-y-auto w-full max-h-[370px] md:max-h-[390px]">
         {items.length === 0 ? (
           <div className="col-span-4 flex justify-center items-center text-center text-white">
             <h1>No items found</h1>
