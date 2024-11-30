@@ -50,7 +50,7 @@ const StatusButton = ({
         <PiSpinnerGap className="animate-spin text-blue-600 text-3xl" />
       )}
       {data === "approved" && (
-        <h1 className="text-xl font-bold font-sans">accepted</h1>
+        <h1 className="text-sm md:text-xl font-bold font-sans">accepted</h1>
       )}
       {data === "completed" && <FaCheck className=" text-3xl text-green-500" />}
     </div>
