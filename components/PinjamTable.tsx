@@ -52,7 +52,7 @@ const PinjamTableContent = async ({
                     </td>
                     <td className="p-3 border-l-4 border-r-4 border-[#E5D5C5] relative rounded-xl shadow-lg">
                       <Link href={`/process?show=true&id=${row.id}`}>
-                        <div className="font-bold text-xl">
+                        <div className="font-bold text-lg md:text-xl">
                           {row.namaOrmawa}
                         </div>
                         <div className=" ml-4 text-red-800 font-bold text-xs">
