@@ -14,7 +14,7 @@
     "react-dom": "$react-dom"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.7.4",
+    "@auth/prisma-adapter": "^2.11.3",
     "@edgestore/react": "^0.2.2",
     "@edgestore/server": "^0.2.2",
     "@hookform/resolvers": "^3.9.1",
